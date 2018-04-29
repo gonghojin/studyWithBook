@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--익명함수와 선언전 함수 -->
+<script>
+    test();
+    <!-- 익명함수 에러발생 -->
+    var test =  function() { alert("함수 A"); };
+    var test = function() { alert("함수 B"); };
+</script>
+<script>
+    <!-- 선언적 함수 에러X WHY? 웹브라우저는 script 태그 내부의 내용을 한 줄씩 읽기 전에 선언적 함수부터
+    리딩, 따라서 2번째, 3번쨰, 1번째 순(test())으로 실행-->
+    test();
+    function test() { alert("함수 A"); };
+    function test() { alert("함수 B"); };
+
+</script>
+<script>
+
+    var 함수 = function() { alert("함수 A"); }
+    function 함수() { alert("함수 B"); }
+    함수();// 함수 A를 출력 WHY? 선언적 함수가 먼저 생성되고 익명함수가 생성되기 떄문
+</script>
+</body>
+</html>
