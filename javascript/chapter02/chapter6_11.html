@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    var student = {
+        이름: '연하진',
+        국어: 92, 수학: 98,
+        영어: 96, 과학: 98
+    };
+
+    // in 키워드 사용 - 객체 안에 있는 속성
+    var output = "";
+    output += "'이름' in student: " + ('이름' in student) + "\n";
+    output += "'성별' in student : " + ("성별" in student) + "\wn";
+    alert(output);
+
+
+
+    //with 키워드 사용
+    var output2 = "";
+
+    with(student) {
+        output2 += "이름 : " + 이름 + "\n";
+        output2 += "국어 : " + 국어 + "\n";
+    }
+    alert(output2);
+
+    /**  with 키워드를 사용 안 할 시 stduent를 다 써줘야함
+     *
+     *      "이름 : " + student.이름 + "\n";
+     *      "국어 : " + stduent.국어 + "\n";
+     *
+     *      많은 속성 값을 기재해야 할 때 유용할 것
+     * **/
+</script>
+</body>
+</html>
