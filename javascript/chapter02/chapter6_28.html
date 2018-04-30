@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //옵션 객체 초기화
+    function test(options) {
+        options.valueA = options.valueA || 10;
+        options.valueB = options.valueB || 20;
+        options.valueC = options.valueB || 30;
+
+        alert(options.valueA + " : " + options.valueB + " : " + options.valueC);
+
+    }
+
+    test({
+        valueA : 52,
+        valueB : 273
+    });
+</script>
+</body>
+</html>
