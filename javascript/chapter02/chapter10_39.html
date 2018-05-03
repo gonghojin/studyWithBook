@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h1 id="sun">@</h1>
+    <h1 id="earth">0</h1>
+    <h1 id="moon">*</h1>
+</body>
+<script>
+    function nextRandomInteger(limit) {
+        return Math.round(Math.random() * limit);
+    }
+
+    var randomAlphabet = (function() {
+        var alphabet = "ABCDEFGHIJKMNOPQRSTUVWXYZ";
+        function randomAlphabet() {
+            return alphabet.charAt(nextRandomInteger(25));
+        }
+
+    })();
+
+    function randomSpeed(maxSpeed) {
+        return Math.random() * maxSpeed - Math.random() * maxSpeed;
+    }
+
+    var canvasWidth = 700;
+    var canvasHeight = 400;
+
+    function MovingText() {
+        this.x = nextRandomInteger(canvasWidth);
+        this.y = nextRandomInteger(canvasHeight);
+        this.vx = randomSpeed(10);
+        this.vy = randomSpeed(10);
+
+        this.body = document.createElement("h1");
+        this.body.innerHTML = randomAlphabet();
+        this.body.style.position = "absolute";
+
+        document.body.appendChild(this.body);
+    }
+
+    MovingText.prototype.move = function() {
+        if(this.x < 0 || this.x > canvasWidth) {
+            this.vx *= -1;
+            this.vy *= -1;
+        }
+        if(this.y < 0 || this.y > canvasHeight) {
+            this.vx *= -1;
+            this.vy *= -1;
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        this.body.style.left = this.x + "px";
+        this.body.style.top = this.y + "px";
+
+        var movingTexts = [];
+        for(var i = 0; i < 100; i++) {
+            movingText.push(new MovingText());
+        }
+
+        setInterval(function() {
+            for(var i in movingTexts) {
+                movingTexts[i].move();
+            }
+        }, 1000 / 30);
+    };
+</script>
+<script>
+    /**   추가( 클로저의 사용 )
+     *
+     * 만약 alphabet 변수를 재정의 할 경우, 프로그램 실행에 문제가 발생한다.
+     * 가장 쉽게 해결할 수 있는 방법은 randomAlphabet() 메소드에 변수를 선언하는 거지만 randomAlphablet() 메소드를 빈번하게 사용할 경우,
+     * 불필요한 메모리의 사용를 사용하게 된다.
+     * 따라서 이런 상황에 클로저를 사용해보자
+     *
+     *   var randomAlphabet = (function() {
+             var alphabet = "ABCDEFGHIJKMNOPQRSTUVWXYZ";
+             function randomAlphabet() {
+                return alphabet.charAt(nextRandomInteger(25));
+             }
+
+         })();
+     *
+     * **/
+</script>
+</html>
