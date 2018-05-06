@@ -14,20 +14,45 @@
 
 
      */
-    $(function() {
-        var object = { name : "공호진" };
+    $(function () {
+        var object = {name: "공호진"};
 
         $.extend(object, {
-            region : "서울특별시 강서구",
-            part : "세컨드 기타"
+            region: "서울특별시 강서구",
+            part: "세컨드 기타"
         });
 
         var output = "";
-        $.each(object, function(key, item) {
+        $.each(object, function (key, item) {
             output += key + " : " + item + "\n";
         });
 
         alert(output);
+    });
+</script>
+<script>
+    // $.extend() 메소드 기본사용
+    var object = $.extend({a: 10}, {a: 20, b: 20}, {c: 30});
+    alert(JSON.stringify(object))// {"a":20,"b":20,"c":30}
+
+</script>
+<script>
+    // $.extend() 메소드를 사용한 옵션 객체 보완
+    function test(options) {
+        options = $.extend(
+            {
+                valueA: 10,
+                valueB: 20,
+                valueC: 30,
+            }, options
+        );
+
+        alert(options.valueA + " : " + options.valueB + " : " + options.valueC); // 52 : 273 : 30
+    };
+
+    test({
+        valueA: 52,
+        valueB: 273
     });
 </script>
 </body>
