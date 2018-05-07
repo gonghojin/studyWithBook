@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+    <script>
+    </script>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+</body>
+<script>
+    $(function() {
+        var content = [
+            { name : "윤인성", region : "서울특별시 강서구" },
+            { name : "윤하린", region : "서울특별시 강동구" },
+            { name : "윤인아", region : "서울특별시 강북구" }
+        ];
+
+        $("div").append(function(index) {
+            var item = content[index];
+            var output = "<h1>" + item.name + "</h1>";
+            output += "<h2>" + item.region + "</h2>";
+            return output;
+        });
+    });
+
+</script>
+</body>
+</html>
