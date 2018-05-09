@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+
+</head>
+<body>
+    <h1>Header A</h1>
+    <h1>Header B</h1>
+    <script>
+
+    /**
+     * 1. 선택자를 사용하지 않는 jqeury 플러그인
+     *      $.<플러그인> = <함수>
+     *
+     *      사용방법
+     *      $.<플러그인>()
+
+            일반 함수로 만들어 사용해도 되지만, 대부분의 사람이 jqeury를 사용하면 쉽다는 인식이 있음
+            플러그인을 만들 때 중요하게 사용됨으로 꼭 기억
+
+        EX>
+         $.reload = function() {
+            location = location;
+        };
+
+         $(document).ready(function() {
+            $.reload();
+        });
+
+
+     * **/
+
+
+    /**
+     * 2. 선택자를 사용하는 jquery 플러그인
+     *      $.fn.<플러그인> = <함수>
+     *
+     *      사용방법
+     *      $(<선택자>).<플러그인>()
+     * **/
+    $.fn.myPluginMethod = function(options) {
+        //생성한 플러그인 메서드 내부에서 this  키워드는 선택자로 선택한 대상
+        $(this).css("color", "white");
+        $(this).css("background", "black");
+    };
+
+    $(document).ready(function() {
+        $("h1").myPluginMethod();
+    });
+    </script>
+</body>
+</html>
