@@ -45,6 +45,7 @@ app.all('/data.xml', function (request, response) {
         output += '</product>';
     });
     output += '</products>';
+    response.type('text/xml');
     response.send(output);
 });
 
