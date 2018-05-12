@@ -1,4 +1,6 @@
-# studyWithBook
-교재를 통한 공부
 
-Javascript: 모던웹을 위한 Javascript & jquery
+교재를 통해 튜토리얼 배우기
+==========================
+****
+## Javascript & Jquery
+ + 모던웹을 위한 Javascript & jquery
