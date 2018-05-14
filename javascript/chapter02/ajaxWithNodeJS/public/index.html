@@ -32,7 +32,7 @@
 
         document.getElementById("get").onclick = function () {
             var request = new XMLHttpRequest();
-            request.open("GET", "/product", true);
+            request.open("GET", "/products", true);
             request.send();
             request.onreadystatechange = function (event) {
                 if (request.readyState == 4) {
@@ -76,7 +76,18 @@
                 }
             };
         };
-        document.getElementById("delete").onclick = function () {};
+        document.getElementById("delete").onclick = function () {
+            var request = new XMLHttpRequest();
+            request.open("DELETE", "/products/0", true);
+            request.send();
+            request.onreadystatechange = function (event) {
+                if(request.readyState == 4) {
+                    if(request.status == 200) {
+                        document.getElementById("output").value = request.responseText;
+                    }
+                }
+            }
+        };
     };
 </script>
 </body>
