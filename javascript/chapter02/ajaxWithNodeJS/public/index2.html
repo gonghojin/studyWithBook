@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+</head>
+<body>
+    <button id="get">GET</button>
+    <button id="post">POST</button>
+    <button id="put">PUT</button>
+    <button id="delete">DELETE</button>
+    <h1>input</h1>
+    <input id="name" />
+    <input id="price" />
+    <h1>output</h1>
+    <textarea id="output" disabled="disabled" cols="40" rows="5"></textarea>
+
+    <script>
+       $(function () {
+           // GET
+           $("#get").click(function () {
+               $.ajax({
+                   url : "/products",
+                   type : "GET",
+                   dataType : "text",
+                   success : function (data) {
+                       $("#output").val(data);
+                   }
+               });
+           });
+
+           // POST
+           $("#post").click(function () {
+               $.ajax({
+                   url : "/products",
+                   type : "POST",
+                   dataType : "text",
+                   data : {
+                       name : $("#name").val(),
+                       price : $("#price").val()
+                   },
+                   success : function (data) {
+                       $("#output").val(data);
+                   }
+               });
+           });
+
+           // PUT
+           $("#put").click(function () {
+               $.ajax({
+                   url : "/products/0",
+                   type : "PUT",
+                   dataType: "text",
+                   data : {
+                       name : $("#name").val(),
+                       price : $("#price").val()
+                   },
+                   success : function (data) {
+                       $("#output").val(data);
+                   }
+               });
+           });
+           
+           //DELETE
+           $("#delete").click(function () {
+                $.ajax({
+                    url : "/products/0",
+                    type : "DELETE",
+                    dataType : "text",
+                    success : function (data) {
+                        $("#output").val(data);
+                    }
+                });
+           });
+       });
+    </script>
+</body>
+</html>
