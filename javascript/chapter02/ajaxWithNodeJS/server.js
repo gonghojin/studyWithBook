@@ -1,6 +1,9 @@
 var express = require("express");
 var app = express();
+
 var bodyParser = require("body-parser");
+
+var mysql = require("mysql");
 
 
 app.use(express.static("public"));
@@ -55,12 +58,6 @@ app.all('/parameter', function (request, response) {
     response.send('<h1>' + name + ':' + region + '</h1>');
 });
 
-app.all("/parameter", function (request, response) {
-    var name = request.query.name;
-    var region = request.query.region;
-    console.info(name);
-    response.send("<h1>" + name + " : " + region + "</h1>");
-});
 
 app.all("/parameter/:id", function (request, response) {
     var id = request.params.id;
@@ -71,7 +68,7 @@ app.all("/parameter/:id", function (request, response) {
 app.get("/products", function (request, response) {
     response.send(items);
 });
-app.get("/products/:id", function(request, response) {
+app.get("/products/:id", function (request, response) {
     var id = Number(request.params.id);
 
     if (isNaN(id)) {
@@ -91,7 +88,7 @@ app.get("/products/:id", function(request, response) {
     }
 });
 
-app.post("/products", function(request, response) {
+app.post("/products", function (request, response) {
     var name = request.body.name;
     var price = request.body.price;
     var item = {
@@ -138,6 +135,28 @@ app.del("/products/:id", function(request, response) {
         response.send({ error : "존재하지 않는 데이터입니다.!" });
     }
 });
+
+/* Mysql 접속 */
+var client = mysql.createConnection({
+    user : "selfStudy",
+    password : "selfStudyPw"
+});
+
+// 데이터베이스 쿼리를 사용
+client.query("USE Company");
+client.query("SELECT * FROM products", function(error, result, fields) {
+    if (error) {
+        console.log("쿼리 문장에 오류가 있습니다");
+    } else {
+        console.log(result);
+    }
+});
+
+// ?토큰을 사용하면 2번째 매개변수에 배열로 값을 입력 가능
+client.query("INSERT INTO products(name, modelnumber, series) VALUES(?, ?, ?)"
+            , ["Name Value", "Model Number Value", "Series Value"], function (error, results, fields) {
+
+    });
 
 app.listen(52273, function () {
     console.log("Server Running at http://127.0.0.1:52273");
