@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+</head>
+<body>
+    <form id="my-form">
+        <table>
+            <tr>
+                <td><label for="name">Name</label></td>
+                <td><input id="name" name="name" type="text" /></td>
+            </tr>
+            <tr>
+                <td><label for="region">Region</label></td>
+                <td><input id="region" name="region" type="text" /></td>
+            </tr>
+        </table>
+        <input type="submit" value="Get Ajax String" />
+        <div id="wrap">
+
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            <!-- Ajax 입력 양식 전송-->
+
+            // 방법 1 :  가장 단순하고 무식한 방법
+            /*$("#my-form").submit(function (event) {
+                var name = $("#name").val();
+                var region = $("#region").val();
+
+                var url = "/parameter?name=" + name + "&region=" + region;
+                $("#wrap").load(url);
+
+                event.preventDefault();
+            });*/
+
+            // 방법 2 : param() 메서드 사용 - 비추천
+          /*  $("#my-form").submit(function (event) {
+                var name = $("#name").val();
+                var region = $("#region").val();
+
+                var url = "/parameter";
+                var data = { name : name, region : region };
+                var params = $.param(data);
+
+                $("#wrap").load(url, params);
+
+                event.preventDefault();
+            });
+*/
+          // 방법 3  ★ : 객체를 만들고 Ajax 관련 메서드의 data 속성에 input - 굉장히 유연하여 많이 씀
+            // but submit 이벤트와 연결하는 경우는  많지 않음
+
+    /*        $("#my-form").submit(function (event) {
+                var name = $("#name").val();
+                var region = $("#region").val();
+
+                var url = "/parameter";
+                var data = { name : name, region : region };
+
+                $("#wrap").load(url, data); //? 변수가 안잡히네.. 왜 그러지
+
+                event.preventDefault();
+            });
+    */
+
+            //방법 4  ★★ : serialize()  : 입력양식에 적힌 값을 쿼리 문자열로 변경
+           /* $("#my-form").submit(function (event) {
+                $("#wrap").load("/parameter", $(this).serialize());
+
+                event.preventDefault();
+            });*/
+
+           //방법 5  ★★ : serializeArray() : 입력 양식에 적힌 값을 객체로 변경
+           /* $("my-form").submit(function (evnet) {
+                $('#wrap').load('/parameter', $(this).serializeArray());
+
+                evnet.preventDefault();
+            });*/
+
+
+           // 두 serialize 차이 구분
+           $("#my-form").submit(function (event) {
+               var serialize = $(this).serialize();
+               var serializeArray = $(this).serializeArray();
+
+               $("<h1></h1>").text(serialize).appendTo("#wrap");
+               $("<h1></h1>").text(serializeArray).appendTo("#wrap");
+
+               event.preventDefault
+           });
+        });
+
+    </script>
+</body>
+</html>
