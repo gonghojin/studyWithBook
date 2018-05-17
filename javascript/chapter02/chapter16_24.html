@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+</head>
+<body>
+<h1>
+    <a href="http://hanbit.co.kr">Hanb Media</a>
+</h1>
+<script>
+    $(function() {
+        $("a").click(function(event) {
+            $(this).css("background-color", "blue");
+            return false; / = event.preventDefault() + event.stopPropagation(); 주의) 자바스크립트에서 return false는 기본 이벤트만 제거됨
+
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+</head>
+<body>
+<div>
+    <form id="insert_form">
+        <fieldset>
+            <legend>데이터 추가</legend>
+            <table>
+                <tr>
+                    <td><label>상품명</label></td>
+                    <td><input type="text" name="name" /></td>
+                </tr>
+                <tr>
+                    <td><label>모델 번호</label></td>
+                    <td><input type="text" name="modelnumber" /></td>
+                </tr>
+                <tr>
+                    <td><label>시리즈</label></td>
+                    <td><input type="text" name="series" /></td>
+                </tr>
+            </table>
+            <input type="submit"value="추가" />
+        </fieldset>
+    </form>
+</div>
+<table id="output" border="1">
+</table>
+<script>
+    $(document).ready(function() {
+        //데이터 출력
+
+
+        var selectData = function selectData(){
+            $("#output").empty(); // #output 내부의 내용물 제거
+
+            $.getJSON("/products", function(data) {
+                $(data).each(function(index, item) {
+                    var output = "";
+                    output += "<tr>"
+                    output += "     <td>" + item.id + "</td>";
+                    output += "     <td>" + item.name + "</td>";
+                    output += "     <td>" + item.modelnumber + "</td>";
+                    output += "     <td>" + item.series + "</td>";
+                    output += "</tr>";
+                    $("#output").append(output);
+                });
+            });
+        };
+
+        selectData();
+
+
+
+        //데이터 입력
+        $("#insert_form").submit(function(event) {
+            var data = $(this).serialize();
+
+            $.post("/products", data, selectData);
+
+            event.preventDefault();
+        });
+    });
+</script>
+</body>
+</html>
