@@ -1,3 +1,5 @@
+package onetime.understandingdatastructure;
+
 public class BSWorstOpCount {
     public static int BSearch(int[] ar, int len, int target) {
         int first = 0; // 탐색 대상의 시작 인덱스 값

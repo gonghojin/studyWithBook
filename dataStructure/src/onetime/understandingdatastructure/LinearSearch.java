@@ -1,3 +1,5 @@
+package onetime.understandingdatastructure;
+
 public class LinearSearch {
     public static int LSearch(int [] ar, int len, int target) { // 순차탐색 알고리즘 적용 함수
         int i;
