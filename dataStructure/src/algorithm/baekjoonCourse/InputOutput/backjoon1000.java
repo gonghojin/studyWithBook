@@ -1,4 +1,4 @@
-package algorithm.backjoonCourse.InputOutput;
+package algorithm.baekjoonCourse.InputOutput;
 
 import java.util.Scanner;
 
