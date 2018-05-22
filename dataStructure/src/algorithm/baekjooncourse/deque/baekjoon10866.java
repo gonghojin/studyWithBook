@@ -1,4 +1,4 @@
-package algorithm.baekjoonCourse.Deque;
+package algorithm.baekjooncourse.deque;
 
 import java.util.ArrayDeque;
 import java.util.Scanner;

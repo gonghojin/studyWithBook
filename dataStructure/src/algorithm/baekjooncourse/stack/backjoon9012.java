@@ -1,4 +1,4 @@
-package algorithm.baekjoonCourse.stack;
+package algorithm.baekjooncourse.stack;
 
 import java.util.Scanner;
 

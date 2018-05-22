@@ -1,4 +1,4 @@
-package algorithm.baekjoonCourse.queue;
+package algorithm.baekjooncourse.queue;
 
 import java.util.LinkedList;
 import java.util.Queue;
