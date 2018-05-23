@@ -3,7 +3,7 @@ package algorithm.baekjooncourse.dp;
 import java.util.Scanner;
 
 // https://www.acmicpc.net/problem/9095
-public class baekjoon9095 {
+public class Baekjoon9095 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int[] d = new int[11]; // 인덱스 1부터 시작 11보다 작다니

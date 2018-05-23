@@ -3,7 +3,7 @@ package algorithm.baekjooncourse.dp;
 import java.util.Scanner;
 
 // https://www.acmicpc.net/problem/11726
-public class baekjoon11726 {
+public class Baekjoon11726 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int num = sc.nextInt();
