@@ -3,7 +3,7 @@ package algorithm.baekjooncourse.dp;
 import java.util.Scanner;
 
 // https://www.acmicpc.net/problem/2156
-// 1차원 배열로 풀어보기
+// 1차원 배열로 풀어보기 추신: 2차원으로도 풀어보기(p91)
 public class Baekjoon2156_1arr {
 
     public static void main(String[] args) {
