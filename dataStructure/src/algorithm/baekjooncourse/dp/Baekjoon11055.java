@@ -2,6 +2,7 @@ package algorithm.baekjooncourse.dp;
 
 import java.util.Scanner;
 
+// https://www.acmicpc.net/problem/11055
 public class Baekjoon11055 {
 
     public static void main(String[] args) {
@@ -15,7 +16,7 @@ public class Baekjoon11055 {
         int[] d = new int[n];
         for (int i = 0; i < n; i++) {
             d[i] = a[i];
-            for (int j = 0; j < 1; j++) {
+            for (int j = 0; j < i; j++) {
                 if (a[j] < a[i] && d[i] < d[j] + a[i]) {
                     d[i] = d[j] + a[i];
                 }
