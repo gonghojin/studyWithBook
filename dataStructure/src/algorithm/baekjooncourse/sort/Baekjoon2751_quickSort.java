@@ -27,10 +27,10 @@ public class Baekjoon2751_quickSort {
             if (l <= r) { // 교차되지 않는 상태라면
                 Swap(arr, l, r);
             }
-            Swap(arr, l, right);
-            QuickSort(arr, left, l - 1);
-            QuickSort(arr, l + 1, right);
         }
+        Swap(arr, l, right);
+        QuickSort(arr, left, l - 1);
+        QuickSort(arr, l + 1, right);
     }
 
     private static void Swap(int[] arr, int first, int second) {
