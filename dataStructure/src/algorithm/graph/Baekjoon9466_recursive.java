@@ -9,11 +9,11 @@ public class Baekjoon9466_recursive {
 
     private static int dfs(int x, int cnt, int step) {
         if (d[x] != 0) {
-            if (step != s[x]) {
-                return 0;
+            if (step != s[x]) { // 같은 사이클의 범위를 step으로 표현
+                return 0; // 같지 않다는 것은 사이클을 형성 못했다는 뜻.
             }
-            return cnt - d[x];
-        }
+            return cnt - d[x]; // 같은 사이클이니 d[x] 빼줘야 첫번쨰 시작점이 2번 안들어감
+        }                       // d[x]는 출발점이니 항상 1 = cnt
         d[x] = cnt;
         s[x] = step;
 
@@ -26,7 +26,7 @@ public class Baekjoon9466_recursive {
             int n = sc.nextInt();
             a = new int[n+1]; // 입력 배열
             d = new int[n+1]; // 시작 정점부터 몇 번 째 방문 자리인지
-            s = new int[n+1]; // 시작 정점
+            s = new int[n+1]; // 시작 정점으로 같은 사이클인지 구분
 
             for (int i = 1; i <= n; i++) {
                 a[i] = sc.nextInt(); // 정점
