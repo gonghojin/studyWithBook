@@ -1,9 +1,9 @@
-package com.gongdel.controlelr;
+package com.gongdel.controller;
 
 import com.gongdel.domain.Book;
+import com.gongdel.domain.Reader;
 import com.gongdel.repository.ReadingListRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ReadingListController {
 
-    private static final String reader = "gongdel";
     private ReadingListRepository readingListRepository;
 
    /* @Autowired
@@ -27,16 +26,17 @@ public class ReadingListController {
 */
 
     @GetMapping
-    public String readerBooks(Model model) {
+    public String readerBooks(Reader reader, Model model) {
         List<Book> readingList = readingListRepository.findByReader(reader);
         if (readingList != null) {
             model.addAttribute("books", readingList);
+            model.addAttribute("reader", reader);
         }
 
         return "readingList";
     }
     @PostMapping
-    public String addToReadingList(Book book) {
+    public String addToReadingList(Reader reader, Book book) {
         book.setReader(reader);
         readingListRepository.save(book);
 
