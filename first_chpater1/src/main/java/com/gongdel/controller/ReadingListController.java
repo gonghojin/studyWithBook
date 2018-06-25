@@ -2,8 +2,10 @@ package com.gongdel.controller;
 
 import com.gongdel.domain.Book;
 import com.gongdel.domain.Reader;
+import com.gongdel.properties.AmazonProperties;
 import com.gongdel.repository.ReadingListRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import java.util.List;
 public class ReadingListController {
 
     private ReadingListRepository readingListRepository;
+    private AmazonProperties amazonProperties;
 
    /* @Autowired
     public ReadingListController(ReadingListRepository readingListRepository) {
@@ -31,6 +34,7 @@ public class ReadingListController {
         if (readingList != null) {
             model.addAttribute("books", readingList);
             model.addAttribute("reader", reader);
+            model.addAttribute("amazonID", amazonProperties.getAssociatedId());
         }
 
         return "readingList";
