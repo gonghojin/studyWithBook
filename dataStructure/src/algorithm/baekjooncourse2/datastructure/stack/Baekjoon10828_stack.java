@@ -1,4 +1,4 @@
-package algorithm.baekjooncourse2.datastructure;
+package algorithm.baekjooncourse2.datastructure.stack;
 
 import java.util.Scanner;
 import java.util.Stack;
