@@ -1,4 +1,4 @@
-package algorithm.baekjooncourse2.math;
+package algorithm.baekjooncourse2.sort;
 
 import java.io.BufferedReader;
 import java.io.IOException;

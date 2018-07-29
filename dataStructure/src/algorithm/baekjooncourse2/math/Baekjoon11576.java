@@ -3,25 +3,26 @@ package algorithm.baekjooncourse2.math;
 import java.util.*;
 
 public class Baekjoon11576 {
-    public static void convert(int num, int base) {
-        if (num == 0) {
+
+    public static void convert(int x, int y) {
+        if (x == 0) {
             return;
         }
-        convert(num / base, base);
-        System.out.print(num % base + " ");
+        convert(x / y, y);
+        System.out.print(x % y + " ");
     }
-
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int a = sc.nextInt();
-        int b = sc.nextInt();
-        int n = sc.nextInt();
-        int ans = 0;
-        for (int i = 0; i < n; i++) {
-            int x = sc.nextInt();
-            ans = ans * a + x;
+        int a = sc.nextInt(); // A진법
+        int b = sc.nextInt(); // B진법
+        int m = sc.nextInt(); // A진법의 자리 개수
+
+        int temp = 0;
+        for (int i = 0; i < m; i++) {
+            int n = sc.nextInt(); // A진법 각 자리당 수
+            temp = temp *  a + n;
         }
-        convert(ans, b);
-        System.out.println();
+        convert(temp, b);
+
     }
 }
