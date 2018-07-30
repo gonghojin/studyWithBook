@@ -10,7 +10,7 @@ Javascript & Jquery
 
 DataStructure & Algorithm
 ---------------------------
-+ dataStructure : 윤성우의 자료구조 and 백준알고리즘 문제 및 
++ dataStructure : 윤성우의 자료구조 and  
 
 SpringBoot
 ----------------------------
