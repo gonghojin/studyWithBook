@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * 퀵, merge 정렬로는 시간초과가 된다 시간 복잡도가 nlogn보다 빠른 정렬이 필요
+ * 여기서는 Scanner를 사용했지만, quicksort에서 BufferedReader를 해봤지만 그마저도 불가
+ * 다른 방법 필요
+ */
 public class Baekjoon11004_merge {
     public static void mergeSort(List<Integer> list, int first, int last) {
         if (first < last) {
