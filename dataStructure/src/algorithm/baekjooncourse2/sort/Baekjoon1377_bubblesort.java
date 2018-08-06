@@ -10,11 +10,19 @@ import java.util.StringTokenizer;
 
 public class Baekjoon1377_bubblesort {
 
-    private void solve() {
+    public static class Pair {
+        int index;
+        int value;
 
+        public Pair(int index, int value) {
+            this.index = index;
+            this.value = value;
+        }
+    }
+
+    private void solve() {
         int n = sc.nextInt();
         ArrayList<Pair> list = new ArrayList<>();
-
         for (int i = 0; i < n; i++) {
             list.add(new Pair(i, sc.nextInt()));
         }
@@ -22,12 +30,12 @@ public class Baekjoon1377_bubblesort {
         Collections.sort(list, new Comparator<Pair>() {
             @Override
             public int compare(Pair o1, Pair o2) {
-                if (o1.value > o2.value) {
-                    return 1;
-                } else if (o1.value == o2.value) {
-                    return 0;
-                } else {
+                if (o1.value < o2.value) {
                     return -1;
+                } else if (o2.value < o1.value) {
+                    return 1;
+                } else {
+                    return 0;
                 }
             }
         });
@@ -38,25 +46,7 @@ public class Baekjoon1377_bubblesort {
                 ans = list.get(i).index - i;
             }
         }
-
         System.out.println(ans + 1);
-
-    }
-
-    public static class Pair {
-        int index;
-        int value;
-
-        Pair(int index, int value) {
-            this.index = index;
-            this.value = value;
-        }
-    }
-
-    public static void main(String[] args) {
-        sc.init();
-
-        new Baekjoon1377_bubblesort().solve();
     }
 
     static class sc {
@@ -70,16 +60,9 @@ public class Baekjoon1377_bubblesort {
 
         static String readLine() {
             try {
-                return br.readLine();
+                br.readLine();
             } catch (IOException e) {
-            }
-            return null;
-        }
-
-        static String readLineReplace() {
-            try {
-                return br.readLine().replaceAll("\\s+", "");
-            } catch (IOException e) {
+                e.printStackTrace();
             }
             return null;
         }
@@ -89,21 +72,19 @@ public class Baekjoon1377_bubblesort {
                 try {
                     st = new StringTokenizer(br.readLine());
                 } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
             return st.nextToken();
         }
 
-        static long nextLong() {
-            return Long.parseLong(next());
-        }
-
         static int nextInt() {
             return Integer.parseInt(next());
         }
+    }
 
-        static double nextDouble() {
-            return Double.parseDouble(next());
-        }
+    public static void main(String[] args) {
+        sc.init();
+        new Baekjoon1377_bubblesort().solve();
     }
 }
