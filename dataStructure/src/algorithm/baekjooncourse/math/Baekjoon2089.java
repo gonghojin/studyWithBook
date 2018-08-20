@@ -3,6 +3,7 @@ package algorithm.baekjooncourse.math;
 import java.util.Scanner;
 
 // https://www.acmicpc.net/problem/2089
+// http://m.blog.daum.net/rhaoslikesan/378
 public class Baekjoon2089 {
 
     public static void main(String[] args) {
