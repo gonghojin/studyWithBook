@@ -1,10 +1,10 @@
 package algorithm.baekjooncourse2.math;
 
-import org.junit.Test;
+//import org.junit.Test;
 
 import java.util.Scanner;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
 public class Baekjoon9613 {
     public static int gcd(int a, int b) {
@@ -33,20 +33,20 @@ public class Baekjoon9613 {
         }
     }
 
-   @Test
-    public void gcdTest() {
-        // given
-        int expected = 70;
-        int[] a = {50, 40, 20, 30};
-        int n = a.length;
-        // when
-       int ans = 0;
-       for (int i = 0; i < n - 1; i++) {
-           for (int j = i + 1; j < n; j++) {
-               ans += gcd(a[i], a[j]);
-           }
-       }
-       // then
-        assertEquals(expected, ans);
-   }
+//   @Test
+//    public void gcdTest() {
+//        // given
+//        int expected = 70;
+//        int[] a = {50, 40, 20, 30};
+//        int n = a.length;
+//        // when
+//       int ans = 0;
+//       for (int i = 0; i < n - 1; i++) {
+//           for (int j = i + 1; j < n; j++) {
+//               ans += gcd(a[i], a[j]);
+//           }
+//       }
+//       // then
+//        assertEquals(expected, ans);
+//   }
 }
