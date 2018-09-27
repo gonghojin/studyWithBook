@@ -1,4 +1,4 @@
-package algorithm.baekjooncourse3;
+package algorithm.baekjooncourse3.math;
 
 import java.util.Scanner;
 
