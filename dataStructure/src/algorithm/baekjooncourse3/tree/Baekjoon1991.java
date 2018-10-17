@@ -1,11 +1,11 @@
-package onetime;
+package algorithm.baekjooncourse3.tree;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Baekjoon2146 {
+public class Baekjoon1991 {
 
     public static void preorder(int[][] node, int x) {
         if (x == -1) {
