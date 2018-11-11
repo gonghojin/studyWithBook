@@ -11,7 +11,7 @@ public class Baekjoon1783 {
        if (height == 1) { // 이동 못함
            System.out.println(1);
        } else if(height == 2) {
-           System.out.println(Math.min(4, (width) / 2));
+           System.out.println(Math.min(4, (width + 1) / 2));
        } else if (3 <= height) {
            if (7 <= width) {
                System.out.println(width - 2);
