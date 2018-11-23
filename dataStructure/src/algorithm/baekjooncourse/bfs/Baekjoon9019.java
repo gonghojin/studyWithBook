@@ -18,6 +18,7 @@ public class Baekjoon9019 {
             c[n] = true;
             d[n] = 0;
             v[n] = -1;
+
             Queue<Integer> q = new LinkedList<Integer>();
             q.add(n);
             while (!q.isEmpty()) {
@@ -30,8 +31,12 @@ public class Baekjoon9019 {
                     v[next] = now;
                     w[next] = 'D';
                 }
+
                 next = now - 1;
-                if (next == -1) next = 9999;
+                if (next == -1) {
+                    next = 9999;
+                }
+
                 if (c[next] == false) {
                     q.add(next);
                     c[next] = true;
@@ -40,6 +45,7 @@ public class Baekjoon9019 {
                     w[next] = 'S';
                 }
                 next = (now % 1000) * 10 + now / 1000;
+
                 if (c[next] == false) {
                     q.add(next);
                     c[next] = true;
@@ -48,6 +54,7 @@ public class Baekjoon9019 {
                     w[next] = 'L';
                 }
                 next = (now / 10) + (now % 10) * 1000;
+
                 if (c[next] == false) {
                     q.add(next);
                     c[next] = true;
@@ -56,11 +63,13 @@ public class Baekjoon9019 {
                     w[next] = 'R';
                 }
             }
+
             StringBuilder ans = new StringBuilder();
             while (m != n) {
                 ans.append(w[m]);
                 m = v[m];
             }
+
             System.out.println(ans.reverse());
         }
     }
