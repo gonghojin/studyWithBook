@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Baekjoon1074 {
 
     static void solve(int n, int r, int c) {
+        // 4등분을 해야하는 부분, 2^n으로 증가하니 4등분은 결국 2^(n-1)
         int x = (int) Math.pow(2, n) / 2;
         int y = x;
         int ans = 0;

@@ -2,6 +2,7 @@ package algorithm.baekjooncourse.divde;
 
 import java.util.Scanner;
 
+// http://n1tjrgns.tistory.com/70
 public class Baekjoon2448 {
 
     public static void main(String[] args) {
@@ -12,6 +13,7 @@ public class Baekjoon2448 {
         d[1] = " * * ";
         d[2] = "*****";
 
+        // Math.log는 자연로그이기 때문에, 밑을 정해서 로그를 만드는 방법은 = Math.log(수) / Math.log(밑)
         int m = (int) (Math.log(n/3) / Math.log(2));
         int height = 3;
         String sp =  "   ";
