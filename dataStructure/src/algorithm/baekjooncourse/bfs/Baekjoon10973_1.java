@@ -3,32 +3,33 @@ package algorithm.baekjooncourse.bfs;
 import java.util.Scanner;
 
 public class Baekjoon10973_1 {
-    static boolean next_permutation(int[] d) {
-        int i = d.length - 1; // 기준점
-        while (0 < i && d[i] <= d[i - 1]) {
+
+    static boolean prev_permutation(int[] d) {
+        int i = d.length - 1;
+        while (0 < i && d[i - 1] < d[i]) {
             i -= 1;
         }
 
-        if (i <= 0) {
-            return false; // 마지막 순열
+        if (i == 0) {
+            return false;
         }
 
         int j = d.length - 1;
-        while (d[j] < d[i - 1]) {
+        while (d[i - 1] < d[j]) {
             j -= 1;
         }
 
-        int temp = d[i - 1];
-        d[i - 1] = d[j];
-        d[j] = temp;
+        int temp = d[j];
+        d[j] = d[i - 1];
+        d[i - 1] = temp;
 
-        j = d.length - 1;
+        j = d.length -1;
         while (i < j) {
             temp = d[i];
             d[i] = d[j];
             d[j] = temp;
-            i += 1;
-            j -= 1;
+            i++;
+            j--;
         }
         return true;
     }
@@ -42,20 +43,15 @@ public class Baekjoon10973_1 {
         }
 
         StringBuilder sb = new StringBuilder();
-        if (next_permutation(d)) {
 
-          /*  for (int i = 0; i < n; i++) {
-                sb.append(d[i] + " ");
-            }
-            System.out.println(sb); 27144KB	304ms
-            */
-            for (int x : d) {
-             /*System.out.print(x + " "); 29132KB	380ms*/
-                sb.append(x + " ");
-            }
-            System.out.println(sb); // 	27244KB	284ms
+        if (!prev_permutation(d)) {
+            sb.append("-1");
         } else {
-            System.out.println("-1");
+            for (int ans : d) {
+                sb.append(ans + " ");
+            }
         }
+
+        System.out.println(sb);
     }
 }
