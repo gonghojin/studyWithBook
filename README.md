@@ -15,10 +15,12 @@ DataStructure & Algorithm
 ---------------------------
 + dataStructure : 윤성우의 자료구조 and  백준 알고리즘
 
-SpringBoot
+Spring
 ----------------------------
 + springboot : 스프링코딩 공작소
++ spring data jpa : 인프런-백기선
 
 개발자가 반드시 정복해야할 객체지향과 디자인패턴(최범균)
 -------------------------------------------------------------------
 + oop_designpattern
+ 
