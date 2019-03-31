@@ -11,7 +11,8 @@ import React, {Component} from 'react';
 class EventPractice extends Component {
 
     state = {
-        message : ''
+        message: '',
+        userName: ''
     }
 
     constructor(props) {
@@ -27,21 +28,37 @@ class EventPractice extends Component {
 
     handleChnage(e) {
         this.setState({
-            message: e.target.value
+            /**
+             * 4.2.4 input 여려 개 핸들링
+             */
+            [e.target.name]: e.target.value
         });
     }
 
     handleClick() {
-        alert(this.state.message);
+        alert(this.state.userName + ' : ' + this.state.message);
         this.setState({
-            message: ''
+            message: '',
+            userName: ''
         });
     }
 
+    handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            this.handleClick();
+        }
+    }
     render() {
         return (
             <div>
                 <h1>이벤트 연습</h1>
+                <input
+                    type="text"
+                    name="userName"
+                    placeholder="유저명"
+                    value={this.state.userName}
+                    onChange={this.handleChnage}
+                />
                 <input
                     type="text"
                     name="message"
@@ -56,6 +73,7 @@ class EventPractice extends Component {
                          }*/
                         this.handleChnage
                     }
+                    onKeyPress={this.handleKeyPress}
                 />
                 <button
                     onClick={
@@ -74,6 +92,7 @@ class EventPractice extends Component {
             </div>
         );
     }
+
 }
 
 export default EventPractice;
