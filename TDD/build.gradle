@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group 'com.gongdel.tdd'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // junit5(=jupiter)
+    testImplementation('org.junit.jupiter:junit-jupiter:5.4.1')
+}
+
+test {
+    useJUnitPlatform()
+
+    //http://blog.hkwon.me/gradle-test-task-logging/
+    //https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.logging.TestLogging.html
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+        showCauses = true
+        showExceptions = true
+        showStackTraces = true
+        exceptionFormat = 'full'
+    }
+}
