@@ -5,6 +5,14 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
 class TodoItem extends Component {
+    /*
+        체크박스 변화는 todos 배열을 실제로 업데이트하는 상황이라 TodoList에서 shouldComponentUpdate가 도움이 되지않음.
+        따라서 TodoItem에서 최적화를 진행해줘야 함
+    */
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.done !== nextProps.done;
+    }
+
     render() {
         const {done, children, onToggle, onRemove} = this.props;
         return (
