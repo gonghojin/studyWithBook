@@ -13,7 +13,7 @@ export const decrement = () => ({
     type: types.DECREMENT,
 });
 // 파라미터를 가지고 있는 액션
-export const increment = (color) => ({
+export const setColor = (color) => ({
     type: types.SET_COLOR,
     color,
 });
