@@ -115,7 +115,7 @@ const store = createStore(counter);
 리덕스 스토어를 구독한다는 것은 리덕스 스토어의 상태가 바뀔 떄마다 특정 함수를 실행시킨다는 의미이다.  
 리덕스 스토어를 구독하여 상태가 바뀔 때의 상태를 콘솔에서 기록하도록 코드를 입력해보자.  
 
-( 리액트 컴포넌트에서 리덕스 스토어를 `구독(subscribe)`하는 작업은 나중에 react-redux의 content 함수가 대신하여 리덕스의 내장 함수 subscribe를 직접적으로 사용하지는 않는다.  
+( 리액트 컴포넌트에서 리덕스 스토어를 `구독(subscribe)`하는 작업은 나중에 react-redux의 connect 함수가 대신하여 리덕스의 내장 함수 subscribe를 직접적으로 사용하지는 않는다.  
  여기에서는 리덕스 개념을 이해해보자 )  
  ~~~
  (...)
@@ -130,7 +130,7 @@ const store = createStore(counter);
 ### 12.2.6 dispatch로 액션 전달  
 스토어에 액션을 넣을 때는 store.dispatch 함수를 사용한다.  
 ~~~
-// 이 액션들이 디스패치될 때마다 방금 구독할 떄 등록했던 함수를 실행한다.  
+// 이 액션들이 디스패치될 때마다 방금 구독할 때 등록했던 함수를 실행한다.  
 store.dispatch(increment(1));
 store.dispatch(decrement(5));
 store.dispatch(increment(10));
