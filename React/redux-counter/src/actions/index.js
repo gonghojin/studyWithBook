@@ -10,12 +10,12 @@ export const increment = (index) => ({
     type: types.INCREEMNT,
     index,
 });
-export const decrement = () => ({
+export const decrement = (index) => ({
     type: types.DECREMENT,
     index,
 });
 // 파라미터를 가지고 있는 액션
-export const setColor = (color) => ({
+export const setColor = (index, color) => ({
     type: types.SET_COLOR,
     index,
     color,

@@ -32,7 +32,7 @@ const counter = (state = initialState, action) => {
                     ...counters.slice(0, action.index),
                     {
                         ...counters[action.index], // 기존 객체에
-                        number: counters[action.index] + 1, // 새 number 값 덮어쓰기
+                        number: counters[action.index].number + 1, // 새 number 값 덮어쓰기
                     },
                     ...counters.slice(action.index + 1, counters.length) // 선택한 인덱스의 다음 아이템들
                 ],
@@ -43,7 +43,7 @@ const counter = (state = initialState, action) => {
                     ...counters.slice(0, action.index),
                     {
                         ...counters[action.index],
-                        number: counters[action.index] - 1,
+                        number: counters[action.index].number - 1,
                     },
                     ...counters.slice(action.index + 1, counters.length) // 선택한 인덱스의 다음 아이템들
                 ],

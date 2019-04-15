@@ -5,7 +5,7 @@ import App from './containers/App';
 
 // 리덕스 관련 불러오기
 import {createStore} from 'redux';
-import reducres from './reducers/~index';
+import reducres from './reducers/index';
 /**
  리액트 애플리케이션에 손쉽게 스토어를 연동할 수 있도록 도와주는 컴포넌트
  이 컴포넌트를 불러온 후 연동할 프로젝트의 최상위 컴포넌트를 감싸고, Provider 컴포넌트의  props로 store를 넣어주면 된다.
