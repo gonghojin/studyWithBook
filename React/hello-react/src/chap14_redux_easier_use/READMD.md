@@ -84,3 +84,73 @@ let object2 = object1.setIn(['d', 'f', 'h'], 10);
 ~~~
 ### 14.1.2 Map
 Immutable의 Map은 객체 대신 사용하는 데이터 구조
+#### 14.1.2.2 사용
+~~~
+const {Map} = Immutable;
+const data = Map({
+  a: 1,
+  b: 2,
+});
+~~~
+Map을 사용할 때는 Map 함수 안에 객체를 넣어서 호출한다.  
+여러 층으로 구성된 객체를 Map으로 표현
+~~~
+const data = Map({
+    a: 1,
+    b: 2,
+    c: Map({
+        d: 3,
+        e: 4,
+        f: 5,
+    }),
+});
+~~~
+이처럼 객체 내부에 또 다른 객체들이 있아면, 내부 객체들도 Map으로 감싸 주어야 편리하다.(내부 객체들도 Map을 필수로 써야 하는 것은 아니지만, 내부에서 Map을 사용하지 않으면 추후 setIn, getIn을 활용할 수 없다.)  
+
+만약 객체 내용을 네트워크에서 받아오거나 `전달받는 객체가 너무 복잡한 상태라면` 일일이 내부까지 Map으로 만들기 힘들 수 있다. 따라서 이떄는 fromJS를 사용하자!  
+~~~
+const { Map, fromJS } = Immutable;
+const data = fromJS({
+    a: 1,
+    b: 2,
+    c: {
+        d: 3,
+        e: 4,
+        f: 5
+    },
+});
+~~~
+fromJS를 사용하면 이 코드처럼 내부에 있는 객체들은 Map을 쓰지 않아도 된다.
+
+##### 자주 사용하는 Immutable 객체의 내장 함수
++ 자바스크립트 객체로 변환  
+> Immutable 객체를 일반 객체 형태로 변형하는 방법  
+> const deserialized = data.toJS(); // { a: 1, b: 2, c: { d: 3, e: 4} }  
+
++ 특정 키의 값 불러오기 - get()
+> data.get('a'); // 1
++ 깊숙이 위치하는 값 불러오기 - getIn()
+> Map 내부에 Map이 존재하고, 그 Map 안에 있는 키 값을 불러올 때  
+> data.getIn(['c', 'd']); // 3
+
++ 값 설정 - set()
+> const newData = data.set('a', 4);  
+> set을 한다고 해서 데이터가 실제로 변하는 것은 아니다. 즉 새 Map을 만든다.  
+> newData === data; // false
+
++ 깊숙이 위치하는 값 수정 - setIn()  
+> const newData = data.setIn(['c', 'd'], 10);
+
++ 여러 값 동시에 설정 - mergeIn()  
+> 예를들어 c 객체 안의 d와 e의 값을 동시에 바꿔야 할 때  
+> const newData = data.mergeIn(['c'], { d: 10, e: 10});  
+> 이렇게 mergeIn을 사용하면 c 안에 들어있는 f값은 그대로 유지하면서 d, e 값만 변경한다.
+
+또는 다음과 같이 입력할 수 있다.
+> const newData = data.setIn(['c', 'd'], 10).setIn(['c','d'], 10);  
+
+만약 최상위에서 merge를 해야한다면?
+> const newData = data.mergeIn({ a: 10, b: 10 });  
+
+set을 여러 번 할지 vs merge를 할지  
+> 그때끄때 상황에 맞추면 되지만, 성능상으로는 set을 여러 번 하는 것이 더 빠르다. (애초에 오래 걸리는 작업이 아니므로, 매우 미미함) 
