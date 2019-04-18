@@ -153,4 +153,60 @@ fromJS를 사용하면 이 코드처럼 내부에 있는 객체들은 Map을 쓰
 > const newData = data.mergeIn({ a: 10, b: 10 });  
 
 set을 여러 번 할지 vs merge를 할지  
-> 그때끄때 상황에 맞추면 되지만, 성능상으로는 set을 여러 번 하는 것이 더 빠르다. (애초에 오래 걸리는 작업이 아니므로, 매우 미미함) 
+> 그때그때 상황에 맞추면 되지만, 성능상으로는 set을 여러 번 하는 것이 더 빠르다. (애초에 오래 걸리는 작업이 아니므로, 매우 미미함)
+
+### 14.1.3 List  
+List는 Immutable 데이터 구조로 `배열` 대신 사용한다. 배열과 동일하게 map, filter, sort, push, pop 함수를 내장하고 있다. 이 내장 함수를 실행하면 List 자체를 변경하는 것이 아니라, `새로운 List를 반환한다`.  
+또 리액트 컴포넌트는 List 데이터 구조와 호환되기 때문에 map 함수를 사용하여 데이터가 들어있는 List를 컴포넌트 List로 변환하여 JSX에서 보여 주어도 제대로 렌더링된다. 
+#### 14.1.3.1 생성  
+~~~
+const { List } = Immutable;
+const list = List([0, 1, 2, 3, 4]);
+~~~
+객체들의 List를 만들어야 할 때, 객체들을 Map으로 만들어야 추후 get과 set을 사용가능
+~~~
+const { List, Map, formJS } = Immutable;
+
+const list = List([
+    Map({ value: 1, }),
+    Map({ value: 2, }),
+]);
+
+// or
+
+const list2 = fromJS([
+    { value: 1 },
+    { value: 2 },
+]);
+~~~
+fromJS를 사용하면 내부 배열은 List로 만들고, 내부 객체는 Map으로 만듭니다. 
+그리고 `Map과 마찬가지로 List도 toJS를 사용하여 일반 배열로 변환`할 수 있다. 이 과정에서 내부에 있는 Map들도 자바스크립트 객체로 변환된다.  
+~~~
+list.toJS());
+~~~ 
+#### 14.1.3.2 값 읽어 오기
+n번째 원소 값 읽기 - get(n)  
+~~~
+list.get(0);
+~~~
+0번째 아이템의 value 값 읽기 
+~~~
+list.getIn([0, 'value']);
+~~~
+#### 14.1.3.3 아이템 수정
+n번째 아이템을 수정해야 할 때 - set과 setIn / 원소를 통째로 바꾸고 싶을 떄는 다음과 같이 set 사용  
+~~~
+const newList = list.set(0, Map({value: 10}))
+~~~
+List의 Map 내부 값을 변경하고 싶을 때 - setIn
+~~~
+const newList = list.setIn([0, 'value'], 10);
+~~~
+또 다른 방법 update 사용  
+~~~
+const newList = list.update(0, item => item.set('value', item.get('value') * 5)) // ~.update(선택할 인덱스 값, 선택한 원소를 업데이트하는 함수)
+~~~
+값을 업데이트해야 하는데 `기존 값을 참조해야 할 때`는 이처럼 update를 사용하면 편리하다. 업데이트를 사용하지 않았다면?  
+~~~
+const newlist = list.setIn([0, 'value'], list.getIn([0, 'value'] * 5));
+~~~
