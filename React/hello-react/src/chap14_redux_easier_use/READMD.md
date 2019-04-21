@@ -235,3 +235,136 @@ const newList = list.pop();
 list.size;
 list.isEmpty() // 비어 있는지 확인하고 싶다면
 ~~~
+
+
+
+---
+
+## 14.2 Ducks 파일 구조  
+리덕스에서 사용하는 파일들은 일반적으로 `액션타입, 액션 생성 함수, 리듀서` 이렇게 `세 종류로` 분리하여 관리한다.(리덕스 공식 문서에서도 기초를 다룰 때 이 방식으로 설명)  
+하지만 이렇게 파일을 세 종류로 리덕스 관련 코드를 작성하다 보면, 액션을 하나 만들 때마다 파일 세 개를 수정해야 한다.  
+따라서 `액션 타입, 액션 생성 함수, 리듀서를` 모두 `한 파일에서  모듈화하여 관리`하면 어떨까?라는 아이디어로 만든 파일 구조가 바로 Ducks 파일 구조이다.  
+
+### 14.2.1 예시
+Ducks 구조를 사용한 예시 모듈
+~~~
+// 액션 타입
+const CREATE = 'my-app/todos/CRETE';
+const REMOVE = 'my-app/todos/REMOVE';
+const TOGGLE = 'my-app/todos/TOGGLE';
+
+// 액션 생성 함수
+
+export const create = (todo) => ({
+    type: CREATE,
+    todo,
+});
+
+export const remove = (index) => ({
+    type: REMOVE,
+    id,
+});
+
+export const toggle = (id) => ({
+    type: TOGGLE,
+    id,
+});
+
+const initialState = {
+    // 초기 상태...
+}
+
+// 리듀서 
+export default function reducer(state = initialState, action) {
+    switch(action.type) {
+        // 리듀서 관련 코드...
+    }
+}
+~~~
+Ducks 구조에서는 이처럼 파일 안에 액션 타입, 액션 생성 함수, 리듀서를 `한 꺼번에 넣어서 관리하는데 이를 모듈`이라고 한다.  
+
+### 14.2.2 규칙
+Ducks 구조에서 지켜야할 규칙
++ export default를 이용하여 리듀서를 내보내야 한다.
++ export를 이용하여 액션 생성 함수를 내보내야 한다.
+    + 액션 타입 이름은 npm-module-or-app/reducer/ACTION_TYPE 형식을 만들어야 한다.
+        + 라이브러리를 만들거나 애플리케이션을 여러 프로젝트로 나눈 것이 아니라면 맨 앞은 생략해도 된다 (예 : counter/INCREMENT )
++ 외부 리듀서에서 모듈의 액션 타입이 필요할 때는 액션 타입을 내보내도 된다.
+
+### 14.3 redux-actions를 이용한 더 쉬운 액션 관리
+redux-actions 패키지에는 리덕스 액션들을 관리할 때 유용한 `createAction`과 `handleActions 함수`가 있다.
+~~~
+$ yarn add redux-actions
+
+import { createAction, handleActions } from 'redux-actions';
+~~~
+
+#### 14.3.1 createAction를 이용한 액션 생성 자동화  
+리덕스에서 액션을 만들다 보면 모든 액션에서 일일이 액션 생성자를 만드는 것이 번거롭다.
+~~~
+export const increment = (index) => ({
+    type: types.INCREMENT,
+    index,
+});
+
+export const decrement = (index) => ({
+    type: types.DECREMENT,
+    index,
+});
+~~~
+createAction을 사용하면 이 작업을 다음과 같이 자동화할 수 있다.
+~~~
+const increment = createAction(types.INCREMENT);
+const decrement = createAction(types.DECREMENT);
+~~~
+createAction 함수는 액션 생성 함수를 간단하게 만들어 준다. 이렇게 만든 함수에 파라미터를 넣어서 호출하면 다음과 같이 payload 키에 파라미터로 받은 값을 넣어 객체를 만들어 준다.
+~~~
+increment(3);
+/*
+    결과:
+    {
+        type: 'INCREMENT';
+        payload: 3,
+    }
+*/
+~~~
+전달받을 파라미터가 여러 개일 때는 객체를 만들어서 파라미터에 넣어 준다.
+~~~
+export const setColor = createAction(types.SET_COLOR);
+
+setColor({index: 5, color: 'red'});
+/*
+    결과:
+        {
+            type: 'SET_COLOR',
+            payload: {
+                index: 5,
+                color: 'red',
+            },
+        }
+       
+*/
+~~~
+만약 어떤 파라미터를 받는지 명시하지 않아 헷갈린다면, createAction의 두 번째 파라미터에 payload 생성 함수를 전달하여 코드상으로 명시해 줄 수 있다.
+~~~
+export const setColor = createAction(types.SET_COLOR, ({index, color}) => ({index, color}));
+~~~
+
+### 14.3.2 switch문 대신 handleActions 사용
+리듀서에 switch문을 사용하여 액션 type에 따라 다른 작업을 하도록 할 경우, 아주 중요한 결점이 하나 있다.  
+바로 `scope를 리듀서 함수`로  설정했다는 것이다. 그렇기 때문에 서로 다른 case에서 let이나 const를 사용하여 변수를 선언하려고 할 때, 같은 이름의 중첩으로 인한 문법 오류가 발생한다.  
+그렇다고 case마다 함수를 정의하면 코드를 읽기 힘들어 진다. 이를 해결하는 것이 바로 `handleActions`이다.
+~~~
+const reducer = handleActions({
+    INCREMENT: (state, action) => ({
+        counter: state.counter + action.payload,
+    }),
+    
+    DECREMENT: (state. action) => ({
+        counter: state.counter - action.payload,
+    }),
+}, {counter: 0});
+
+// 첫번째 파라미터 - 액션에 따라 실행할 함수들을 가진 객체
+// 두번째 파라미터 - 상태의 기본 값(stateInitial)
+~~~
