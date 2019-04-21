@@ -1,4 +1,4 @@
-## 14. 리덕스 더 편리하게 사용하기
+# 14. 리덕스 더 편리하게 사용하기
 리덕스를 사용하여 만든 멀티 카운터에는 몇 가지 불편한 점이 있다.   
 예를들어 액션을 만들 때마다 세 가지 파일(액션 타입, 액션 생성 함수, 리듀서)을 수정해야 한다는 점, 전개 연산자(...)와 slice 함수로 배열 냅우의 원소를 수정하는 데 가독성이 낮다는 점이 있다.  
 이러한 불편한 점은 다음으로 인해 보완할 수 있다.  
@@ -6,7 +6,7 @@
 + Ducks 파일구조
 + redux-action - 편리한 액션 생성 함수 만들기
 
-### 14.1 Immutable.js
+## 14.1 Immutable.js
 Immutable.js는 자바스크립트에서 `불변성 데이터`를 다룰 수 있도록 도와준다. 
 #### 14.1.1 객체 불변성
 다음 코드를 보자
@@ -209,4 +209,29 @@ const newList = list.update(0, item => item.set('value', item.get('value') * 5))
 값을 업데이트해야 하는데 `기존 값을 참조해야 할 때`는 이처럼 update를 사용하면 편리하다. 업데이트를 사용하지 않았다면?  
 ~~~
 const newlist = list.setIn([0, 'value'], list.getIn([0, 'value'] * 5));
+~~~
+
+#### 14.1.3.4 아이템 추가
+아이템을 추가할 때는 push를 사용한다. 이 함수를 사용한다고 해서 Array처럼 `기존 List 자체에 아이템을 추가하는 것은 아니다.[새 List를 만들어서 반환한다.]`  
+~~~
+const newList = list.push(Map({value: 3}))
+~~~
+리스트 맨 뒤가 아니라 `맨 앞`에 데이터를 추가하고 싶다면 push 대신에 `unshift를` 사용한다.  
+~~~
+const newList = list.unshift(Map({value: 0}));
+~~~
+
+#### 14.1.3.5 아이템 제거  
+아이템을 제거할 때는 delete를 사용한다.  
+~~~
+const newList = list.delete(1); // 인덱스가 1인 아이템을 제
+~~~
+Array가 가진 내장 함수를 List도 대부분 가지고 있다. 예를들어 마지막 아이템을 제거하고 싶다면 pop을 사용하면 된다.  
+~~~
+const newList = list.pop();
+~~~
+하지만 배열크기를 가져올 때는 length를 참조하지만, List에서는 length가 아닌, size를 참조해야 한다.  
+~~~
+list.size;
+list.isEmpty() // 비어 있는지 확인하고 싶다면
 ~~~
