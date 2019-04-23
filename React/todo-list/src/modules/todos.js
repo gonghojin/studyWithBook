@@ -1,5 +1,5 @@
 import {Map, List} from 'immutable';
-import {handleActions, createAction} from 'react-actions';
+import {handleActions, createAction} from 'redux-actions';
 
 /*
     Docks 구조 이해 안 될 시 input.js 또는 hello-react/src/chap14 md 참조

@@ -1,5 +1,5 @@
 import {Map} from 'immutable';
-import {handleActions, createAction} from 'redux-action';
+import {handleActions, createAction} from 'redux-actions';
 
 /*
     액션 타입을 정의할 떄는 이처럼 문자열의 앞부분에 리듀서 이름을 적어준다.

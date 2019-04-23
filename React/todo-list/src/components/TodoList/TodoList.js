@@ -22,12 +22,12 @@ class TodoList extends Component {
         const todoList = todos.map(
             todo => (
                 <TodoItem
-                    key={todo.id}
-                    done={todo.done}
+                    key={todo.get('id')}
+                    done={todo.get('done')}
                     onToggle={() => onToggle(todo.id)}
                     onRemove={() => onRemove(todo.id)}
                 >
-                    {todo.text}
+                    {todo.get('text')}
                 </TodoItem>
             )
         );
