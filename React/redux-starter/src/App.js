@@ -5,18 +5,36 @@ import * as counterActions from './modules/counter';
 import * as postActions from './modules/post';
 
 class App extends Component {
+    /*
+        ES6 - Promise
+        loadData = () => {
+            const {PostActions, number} = this.props;
+            PostActions.getPost(number)
+                // getPost의 리턴값은 Promise
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    */
 
-    loadData = () => {
+    /*
+         ES7 - async/await
+         await를 쓸 함수의 앞부분에 async 키워드를 붙여주고, 기다려야 할 Promise 앞에 await 키워드를 붙여준다.
+
+         그리고 await를 사용할 떄는 꼭 try ~ catch 문으로 오류를 처리해야 한다.
+         오류를 처리하지 않는다면, 오류가 발생했 을 때 해당 함수는 오류 위치에서 작업을 중지하고 더 이상 진행하지 않는다.
+    */
+    loadData = async () => {
         const {PostActions, number} = this.props;
-        PostActions.getPost(number)
-            // getPost의 리턴값은 Promise
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+        try {
+            const response = await PostActions.getPost(number);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     componentDidMount() {
         this.loadData();
