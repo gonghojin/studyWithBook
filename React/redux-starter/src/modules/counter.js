@@ -10,7 +10,7 @@ export const decrement = createAction(DECREMENT);
 export default handleActions({
     [INCREMENT]: (state, action) => state + 1,
     [DECREMENT]: (state, action) => state - 1,
-}, 0);
+}, 1);
 
 // tag - 카운터를 비동적으로 생성 추가(redux-thunk)
 export const incrementAsync = () => dispatch => {
