@@ -1,10 +1,12 @@
-import {handleActions, createAction} from "redux-actions";
+import {handleActions, /*createAction*/} from "redux-actions";
 import axios from 'axios';
 
 function getPostAPI(postId) {
     return axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
 }
 
+/**
+ *  비동기 작업 처리 방법 1 - redux-thunk
 const GET_POST_PENDING = 'GET_POST_PENDING';
 const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
 const GET_POST_FAILURE = 'GET_POST_FAILURE';
@@ -35,7 +37,17 @@ export const getPost = (postId) => dispatch => {
         throw(error);
     });
 };
+**/
 
+const GET_POST = 'GET_POST';
+const GET_POST_PENDING = 'GET_POST_PENDING';
+const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
+const GET_POST_FAILURE = 'GET_POST_FAILURE';
+
+export const getPost = (postId) => ({
+    type: GET_POST,
+    payload: getPostAPI(postId)
+});
 // Tag - reducer
 /// 리듀서 초기상태
 const initialState = {

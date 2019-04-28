@@ -31,6 +31,7 @@ class App extends Component {
         const {PostActions, number} = this.props;
         try {
             const response = await PostActions.getPost(number);
+            console.log(response);
         } catch (e) {
             console.log(e);
         }
