@@ -5,6 +5,8 @@ import * as counterActions from './modules/counter';
 import * as postActions from './modules/post';
 
 class App extends Component {
+
+    cancelRequest = null;
     /*
         ES6 - Promise
         loadData = () => {
@@ -30,16 +32,33 @@ class App extends Component {
     loadData = async () => {
         const {PostActions, number} = this.props;
         try {
-            const response = await PostActions.getPost(number);
+            const p = PostActions.getPost(number);
+            // Promise 내장 함수
+            this.cancelRequest = p.cancel;
+            const response = await p;
             console.log(response);
         } catch (e) {
             console.log(e);
         }
     };
 
+    handleCancel = () => {
+        if (this.cancelRequest) {
+            this.cancelRequest();
+            this.cancelRequest = null;
+        }
+    }
+
     componentDidMount() {
         this.loadData();
         console.info('componentDidMount() working')
+
+        // Esc 누르면 요청을 취소
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'Escape') {
+                this.handleCancel();
+            }
+        });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -108,8 +127,14 @@ export default connect(
          */
         number: state.counter,
         post: state.post.data,
+        /* 비동기 1, 2
         loading: state.post.pending,
         error: state.post.error,
+        */
+
+        //redux-pending
+        loading: state.pender.pending['GET_POST'],
+        error: state.pender.failure['GET_POST'],
     }),
     (dispatch) => ({
         CounterActions: bindActionCreators(counterActions, dispatch),

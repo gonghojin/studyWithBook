@@ -42,8 +42,17 @@ export default handleActions({
                     body,
                 }
             }
+            //함수를 생략했을 떄는 기본 값으로는 (state, action) => state를 설정한다. (state를 그대로 반환한다는 의미)
         },
-        //함수를 생략했을 떄 기본 값으로는 (state, action) => state를 설정한다. (state를 그대로 반환한다는 의미)
+        // 요청을 취소했을 때 특정 작업
+        onCancel: (state, action) => {
+            return {
+                data: {
+                    title: '취소됨',
+                    body: '취소됨',
+                },
+            }
+        },
     })
 }, initialState);
 
