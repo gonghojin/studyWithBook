@@ -67,3 +67,40 @@ create-react-app로 만든 프로젝트는 node_modules에 webpack 관련 설정
 ~~~
 $ yarn eject
 ~~~
+
+### 17.1.2 vendor 설정
+react, react-dom, redux, react-redux, styled-component 등의 라이브러리처럼 전역적으로 사용하는 라이브러리들을 vendor로 따로 분리한다.(작성한 코드가 아니라 주로 서드파티 라이브러리들 포함)
+~~~
+
+
+// config/webpack.config.dev.js
+module.exports = {
+    ...
+    entry: {
+        app: [
+            require.resolve('react-dev-utils/webpackHotDevClient'), paths.appIndexJs,
+        ],
+        vendor: [
+            require.resolve('./polyfills'),
+            'react',
+            'react-dom',
+            'react-router-dom',
+        ],
+     }
+     ...
+~~~
+CommonsChunk를 설정함으로써 vendor로 분리된 곳에 들어간 내용들이 app쪽에 중복되지 않게 한다.
+~~~
+// config/webpack.config.dev.js
+   plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            filename: 'vendor.js'
+        }),
+        ...
+~~~
+
+## 17.2 비동기적 코드 불러오기: 청크 생성
+17.2의 vendor 처리는 단순히 원활하게 캐싱을 할 수 있게 하는 작업일 뿐, 페이지를 로딩할 떄 모든 코드를 불러오는 것은 동일하다.  
+`페이지에서 필요한 코드만 불러오려면, 청크(chunk)`를 생성해야 한다.  
+청크를 생성하면 페이지를 로딩할 떄 필요한 파일만 불러올 수 있고, 아직 불러오지 않은 청크 파일들은 나중에 필요할 떄 비동기적으로 불러와 사용할 수 있다. 
