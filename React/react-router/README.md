@@ -67,3 +67,35 @@ create-react-app로 만든 프로젝트는 node_modules에 webpack 관련 설정
 ~~~
 $ yarn eject
 ~~~
+
+### 17.1.2 vendor 설정
+react, react-dom, redux, react-redux, styled-component 등의 라이브러리처럼 전역적으로 사용하는 라이브러리들을 vendor로 따로 분리한다.(작성한 코드가 아니라 주로 서드파티 라이브러리들 포함)
+~~~
+
+
+// config/webpack.config.dev.js
+module.exports = {
+    ...
+    entry: {
+        app: [
+            require.resolve('react-dev-utils/webpackHotDevClient'), paths.appIndexJs,
+        ],
+        vendor: [
+            require.resolve('./polyfills'),
+            'react',
+            'react-dom',
+            'react-router-dom',
+        ],
+     }
+     ...
+~~~
+CommonsChunk를 설정함으로써 vendor로 분리된 곳에 들어간 내용들이 app쪽에 중복되지 않게 한다.
+~~~
+// config/webpack.config.dev.js
+   plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            filename: 'vendor.js'
+        }),
+        ...
+~~~
