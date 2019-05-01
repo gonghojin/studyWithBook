@@ -27,3 +27,31 @@ $ yarn add react-router-dom
     "eject": "react-scripts eject"
   },
 ~~~
+
+## 16.6 라우트로 사용된 컴포넌트가 전달받는 props
+### 16.6.1 location
+location은 현재 페이지의 주소 상태를 알려준다.  
+~~~
+// Post 페이지 컴포넌트에서 location을 조회
+{
+    "pathname": "/posts/3",
+    "search": "",
+    "hash": "",
+    "key": "xmsczi",
+} 
+~~~
+이 location 값은 어떤 라우트 컴포넌트에서 조회하든 같다. 주로 search 값에서 `URL Query 읽거나, 주소가 바뀐 것을 감지하는 데` 사용한다.  
+주소가 바뀐 것을 감지하려면 다음과 같이 컴포넌트 라이프사이클 메서드에서 location을 비교한다.  
+~~~
+componentDidUpdate(prevProps, prevState) {
+    if (prevPros.location !== this.props.location) {
+        // 주소가 바뀜
+    }
+}
+~~~
+### 16.6.2 match
+match는 <Route> 컴포넌트에서 설정한 path와 관련된 데이터들을 조회할 떄 사용.  
+match 객체는 주로 `params를 조회하거나 서브 라우트를 만들 떄 현재 path를 참조하는 데` 사용.
+### 16.6.3 history
+histroy는 현재 라우터를 조작할 떄 사용한다.   
+예를 들어 뒤쪽 페이지로 넘어가거나, 다시 앞쪽 페이지로 가거나, 새로운 주소로 이동해야 할 때 이 객체가 지닌 함수들을 호출
