@@ -2,10 +2,12 @@ import React from 'react';
 import {Route} from "react-router-dom";
 
 import {Home, About} from "pages";
+import Menu from "./components/Menu";
 
 const App = () => {
     return (
         <div>
+            <Menu/>
             {
                 /*
                     exact는 정확한 경로 주소가 들어왔을 때만 보이도록 해준다
