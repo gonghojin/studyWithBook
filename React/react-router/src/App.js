@@ -3,6 +3,7 @@ import {Route} from "react-router-dom";
 
 import {Home, About} from "pages";
 import Menu from "./components/Menu";
+import {Posts} from "./pages";
 
 const App = () => {
     return (
@@ -26,7 +27,7 @@ const App = () => {
                 ?로 붙여줌으로써 선택적으로 받을 수 있음
             */}
             <Route path="/about/:name?" component={About}/>
-
+            <Route path="/posts" component={Posts} />
         </div>
     );
 };
