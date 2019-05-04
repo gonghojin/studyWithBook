@@ -104,3 +104,7 @@ CommonsChunk를 설정함으로써 vendor로 분리된 곳에 들어간 내용�
 17.2의 vendor 처리는 단순히 원활하게 캐싱을 할 수 있게 하는 작업일 뿐, 페이지를 로딩할 떄 모든 코드를 불러오는 것은 동일하다.  
 `페이지에서 필요한 코드만 불러오려면, 청크(chunk)`를 생성해야 한다.  
 청크를 생성하면 페이지를 로딩할 떄 필요한 파일만 불러올 수 있고, 아직 불러오지 않은 청크 파일들은 나중에 필요할 떄 비동기적으로 불러와 사용할 수 있다. 
+
+### 17.3.3 프로덕션용 webpack 설정
+프로덕션용(webpack.config.prodc.js) 파일에 동일한(webpack.config.dev.js)와 동일한 작업 해주기  
+추가적으로 NormalModuleRepacementPlugin에 배포용에 따른 변화주기('pages/index.async.js'로 사용)

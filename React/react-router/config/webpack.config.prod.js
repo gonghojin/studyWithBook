@@ -72,7 +72,24 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appIndexJs],
+    // 프로덕션도 개발환경과 같이 만들기
+    // 파일을 분리함으로써, 코드를 변경하여도 서브파티 라이브러리들이 들어있는 파일들의 재빌드하지 않는다.
+    // 즉 이는 웹브라우저에서는 더욱 오랫동안 캐싱 효과를 누릴 수 있기 때문에 트래픽 절감 및 로딩 속도를 개선할 수 있다.
+    entry: {
+        // We ship a few polyfills by default:
+        app: [
+            /* 소스가 수정되면 자동으로 새로고침하는 설정
+               하지만 이는 프로덕션용에서는 불필요
+            require.resolve('react-dev-utils/webpackHotDevClient'),
+            */ paths.appIndexJs,
+        ],
+        vendor: [
+            require.resolve('./polyfills'),
+            'react',
+            'react-dom',
+            'react-router-dom',
+        ],
+    },
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -106,7 +123,7 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-      
+
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -137,7 +154,7 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              
+
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -165,7 +182,7 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+
               compact: true,
             },
           },
@@ -295,11 +312,16 @@ module.exports = {
     ],
   },
   plugins: [
-    // Makes some environment variables available in index.html.
-    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
-    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    // In production, it will be an empty string unless you specify "homepage"
-    // in `package.json`, in which case it will be the pathname of that URL.
+      // pages라는 것을 불러올 때 pages/index.js 대신 pages/index.async.js파일을 불러옴
+      new webpack.NormalModuleReplacementPlugin(
+        /^pages$/,
+        'pages/index.async.js'
+      ),
+      // CommonsChunk를 설정함으로써 vendor로 분리된 곳에 들어간 내용들이 app쪽에 중복되지 않게 한다.
+      new webpack.optimize.CommonsChunkPlugin({
+          name: 'vendor',
+          filename: 'vendor.js'
+      }),
     new InterpolateHtmlPlugin(env.raw),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
