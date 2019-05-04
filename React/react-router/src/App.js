@@ -1,9 +1,10 @@
 import React from 'react';
 import {Route} from "react-router-dom";
 
-import {Home, About} from "pages";
+//import {Home, About} from "pages";
+// import {Posts} from "./pages";
 
-import {Posts} from "./pages";
+import { Home, About, Posts } from 'pages/index.async';
 import Menu from "./components/Menu";
 import AsyncSplitMe from "./components/AsyncSplitMe";
 
