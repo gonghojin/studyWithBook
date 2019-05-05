@@ -38,3 +38,12 @@ $ yarn add react-router-dom redux redux-actions react-redux redux-pender immutab
 #### 자체 설정: eslint 적용
 [intellij 플러그인 연결](https://jojoldu.tistory.com/230)  
 [eslint 설정](https://velog.io/@velopert/eslint-and-prettier-in-react)
+
+### 20.2.2 글로벌 스타일 및 스타일 유틸 설정
+~~~
+// open-color: 색상을 쉽게 선택할 수 있음
+// include-media: 반응형 디자인을 쉽게 적용할 수 있음
+// materia-shadow 믹스인: 그림자를 간편하게 설정할 수 있음
+
+$ yarn add open-color include-media
+~~~

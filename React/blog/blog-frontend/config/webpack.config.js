@@ -432,7 +432,7 @@ module.exports = function(webpackEnv) {
               }).concat({
                   loader: require.resolve('sass-loader'),
                   options: {
-                      includePaths: [paths.appSrc + '/styles'],
+                      includePaths: [paths.globalStyles],
                       sourceMap: isEnvProduction && shouldUseSourceMap
                   }
               }),
