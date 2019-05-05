@@ -1,11 +1,9 @@
 import React from 'react';
 
-const PostPage = () => {
-    return (
-        <div>
+const PostPage = () => (
+  <div>
             Post
-        </div>
-    );
-};
+  </div>
+);
 
 export default PostPage;

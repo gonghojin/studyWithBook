@@ -35,3 +35,6 @@ $ yarn add react-router-dom redux redux-actions react-redux redux-pender immutab
 + list: 포스트 목록 상태
 + post: 단일 포스트 상태
 
+#### 자체 설정: eslint 적용
+[intellij 플러그인 연결](https://jojoldu.tistory.com/230)  
+[eslint 설정](https://velog.io/@velopert/eslint-and-prettier-in-react)

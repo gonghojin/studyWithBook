@@ -1,11 +1,9 @@
 import React from 'react';
 
-const ListPage = () => {
-    return (
-        <div>
+const ListPage = () => (
+  <div>
             List
-        </div>
-    );
-};
+  </div>
+);
 
 export default ListPage;
