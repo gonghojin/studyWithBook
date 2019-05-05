@@ -11,5 +11,19 @@
 
 ### 20.1.4 Sass 및 CSS 모듈 적용
 ~~~
+// 환경설정 꺼내기
 $ yarn eject
+
+// Sass 적용 & classnames
+$ yarn add node-sass  classnames
 ~~~
+기존 설정법 Create-react-app V2가 릴리즈 되면서 많이 변경되었다. ([참조](https://velog.io/@velopert/create-react-app-v2) )  
+따라서 Sass, Css 설정법은 이 방법으로 하기 ([참조](https://velog.io/@velopert/react-component-styling))
+
+### 20.1.5 라우터와 리덕스 적용
+~~~
+$ yarn add react-router-dom redux redux-actions react-redux redux-pender immutable
+~~~
+
+### 20.1.5.1 루트 컴포넌트 설정
+.env 파일 만들어서 절대 경로 src 잡아주기
