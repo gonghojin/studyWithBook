@@ -1,0 +1,4 @@
+@import 'lib/all';
+
+// 변수: 반응형 디자인을 참조할 구간
+$breakpoints: (small: 320px, medium: 768px, large: 1024px, wide: 1400px);
