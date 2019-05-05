@@ -25,5 +25,13 @@ $ yarn add node-sass  classnames
 $ yarn add react-router-dom redux redux-actions react-redux redux-pender immutable
 ~~~
 
-### 20.1.5.1 루트 컴포넌트 설정
+#### 20.1.5.1 루트 컴포넌트 설정
 .env 파일 만들어서 절대 경로 src 잡아주기
+
+#### 20.1.5.2 리덕스 설정
+리덕스 모듈 설명
++ base: 로그인 상태, 삭제 및 로그인할 떄 보이는 모달 상태
++ editor: 마크다운 에디터 상태
++ list: 포스트 목록 상태
++ post: 단일 포스트 상태
+
