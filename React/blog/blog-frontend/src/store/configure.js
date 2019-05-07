@@ -1,9 +1,12 @@
+/* eslint-disable no-underscore-dangle */
 /*
     스토어를 생성하는 함수
     함수를 따로 만드는 이유는 스토어를 클라이언트에서 생성하지만, 추후 서버사이드 렌더링을 할 떄 서버에서도 호출해야 하기 떄문
  */
-import {createStore, applyMiddleware, compose, combineReducers} from "redux";
-import penderMiddleware from "redux-pender";
+import {
+  createStore, applyMiddleware, compose, combineReducers,
+} from 'redux';
+import penderMiddleware from 'redux-pender';
 import * as modules from './modules';
 
 // 리덕스 모듈 합치기
@@ -21,10 +24,8 @@ const devtools = isDev && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const composeEnhancers = devtools || compose;
 
 // preloadedState는 추후 서버사이드 렌더링을 했을 떄 전달받는 초기 상태
-const configure =
-    (preloadedState) => createStore(
-        reducres, preloadedState, composeEnhancers(applyMiddleware(...middlewares)
-        )
-    );
+const configure = preloadedState => createStore(
+  reducres, preloadedState, composeEnhancers(applyMiddleware(...middlewares)),
+);
 
 export default configure;

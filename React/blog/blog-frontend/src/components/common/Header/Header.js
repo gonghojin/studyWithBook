@@ -12,7 +12,6 @@ const Header = () => (
       </div>
       <div className={cx('right')}>
         {/* 조건에 따라 버튼 렌더링 */}
-                오른쪽
       </div>
     </div>
   </header>
