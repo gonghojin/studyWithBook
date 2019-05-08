@@ -75,9 +75,10 @@
       "react/jsx-filename-extension": 0,
       "react/jsx-one-expression-per-line": 0,
       "import/no-extraneous-dependencies": 0,
-      "import/no-unresolved": 0,
-      "no-unused-vars": 0,
-      "react/prop-types": 0
+      "import/no-unresolved": 1,
+      "no-unused-vars": 1,
+      "react/prop-types": 1,
+      "jsx-a11y/anchor-is-valid": 1
     },
     "env": {
       "browser": true
