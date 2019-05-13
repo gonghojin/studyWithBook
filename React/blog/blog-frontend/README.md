@@ -47,3 +47,8 @@ $ yarn add react-router-dom redux redux-actions react-redux redux-pender immutab
 
 $ yarn add open-color include-media
 ~~~
+
+## 20.6  마크다운 에디터 구현
+~~~
+$ yarn add codemirror marked prismjs
+~~~
