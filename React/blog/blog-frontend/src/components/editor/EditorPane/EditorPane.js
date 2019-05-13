@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import classNames from 'classnames/bind';
 
@@ -34,7 +33,7 @@ class EditorPane extends Component {
     componentDidUpdate(prevProps, prevState) {
       // markdown이 변경되면 에디터 값도 변경
       // 이 과정에서 텍스트 커서의 위치가 초기화 되기 떄문에,
-      // 저장한 커서의 위치가 있으면 해당 위치로 설
+      // 저장한 커서의 위치가 있으면 해당 위치로 설정
       if (prevProps.markdown !== this.props.markdown) {
         const { codeMirror, cursor } = this;
         codeMirror.setValue(this.props.markdown);
@@ -51,7 +50,7 @@ class EditorPane extends Component {
 
     handleChageMarkdown = (doc) => {
       const { onChangeInput } = this.props;
-      const { name, value } = doc.getCursor(); // 텍스트 cursor 위치 저장
+      this.cursor = doc.getCursor(); // 텍스트 cursor 위치 저
       onChangeInput({
         name: 'markdown',
         value: doc.getValue(),
