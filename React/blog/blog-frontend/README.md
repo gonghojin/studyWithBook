@@ -52,3 +52,7 @@ $ yarn add open-color include-media
 ~~~
 $ yarn add codemirror marked prismjs
 ~~~
+
+## 21.1 프록시
+webpack의 프록시(proxy) 기능을 사용하면 개발서버(webpack[port:3000])로 들오온 요청을 백엔드 서버에 전달하고, 응답을 그대로 반환할 수 있다.  
+프록시는 webpack에서 설정할 수 있다(create-react-app로 만든 프로젝트라면 package.json에 명시)
