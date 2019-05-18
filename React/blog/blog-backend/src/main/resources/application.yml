@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+#  data:
+#    rest:
+#      # api\uC758 \uBAA8\uB4E0 \uC694\uCCAD\uC758 \uAE30\uBCF8 \uACBD\uB85C\uB97C \uC9C0\uC815
+#      base-path: /api
+#      # \uD074\uB77C\uC774\uC5B8\uD2B8\uAC00 \uB530\uB85C \uD398\uC774\uC9C0 \uD06C\uAE30\uB97C \uC694\uCCAD\uD558\uC9C0 \uC54A\uC744 \uB584 \uC801\uC6A9\uD560 \uAE30\uBCF8 \uD398\uC774\uC9C0 \uD06C\uAE30\uB97C \uC124\uC815
+#      default-page:size: 10
+#      # \uCD5C\uB300 \uD398\uC774\uC9C0 \uC218\uB97C \uC124\uC815
+#      max-page-size: 10

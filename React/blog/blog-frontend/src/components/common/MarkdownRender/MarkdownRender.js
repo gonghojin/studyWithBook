@@ -32,7 +32,12 @@ class MarkdownRender extends Component {
       };
     }
 
+    // post같이 첫 랜더링에 적용이 필요할 떄
+    componentDidMount() {
+      Prism.highlightAll();
+    }
 
+    // editor같이 랜더링 후 값이 변경되었을 떄
     componentDidUpdate(prevProps, prevState) {
       // markdown값이 변경되면 renderMarkdown을 호출
       if (prevProps.markdown !== this.props.markdown) {
