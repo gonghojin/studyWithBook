@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import EditorHeader from 'components/editor/EditorHeader';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux-actions';
+import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-import editorActions from 'store/modules/editor';
+import * as editorActions from 'store/modules/editor';
 
 class EditorHeaderContainer extends Component {
   componentDidMount() {
@@ -40,10 +40,11 @@ class EditorHeaderContainer extends Component {
     }
 
     render() {
-      const { handleGoBack } = this;
+      const { handleGoBack, handleSubmit } = this;
       return (
         <EditorHeader
           onGoBack={handleGoBack}
+          onSubmit={handleSubmit}
         />
       );
     }
