@@ -20,4 +20,9 @@ public class Post {
     private String body;
     private String[] tags;
 
+    public Post(String title, String body, String[] tags) {
+        this.title = title;
+        this.body = body;
+        this.tags = tags;
+    }
 }
