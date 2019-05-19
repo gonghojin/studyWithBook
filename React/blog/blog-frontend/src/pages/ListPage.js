@@ -1,18 +1,23 @@
 import React from 'react';
 import PageTemplate from 'components/common/PageTemplate';
 import ListWrapper from 'components/list/ListWrapper/ListWrapper';
-import PostList from 'components/list/PostList/PostList';
-import Pagination from '../components/list/Pagination/Pagination';
+import ListContainer from 'containers/list/ListContainer';
 
-const ListPage = () => (
-  <div>
-    <PageTemplate>
-      <ListWrapper>
-        <PostList />
-        <Pagination />
-      </ListWrapper>
-    </PageTemplate>
-  </div>
-);
+const ListPage = ({ match }) => {
+  // page의 기본 값을 1로 설정
+  const { page = 1, tag } = match.params;
+  return (
+    <div>
+      <PageTemplate>
+        <ListWrapper>
+          <ListContainer
+            page={parseInt(page, 10)}
+            tag={tag}
+          />
+        </ListWrapper>
+      </PageTemplate>
+    </div>
+  );
+};
 
 export default ListPage;
