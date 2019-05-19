@@ -17,4 +17,8 @@ public class PostsRestController {
         return postsRepository.save(posts);
     }
 
+    @GetMapping("/posts/{id}")
+    public Post getPost(@PathVariable(value = "id") Long id) {
+        return postsRepository.findById(id).orElse(null);
+    }
 }
