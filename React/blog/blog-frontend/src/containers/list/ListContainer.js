@@ -27,7 +27,6 @@ class ListContainer extends Component {
 
     getPostList = () => {
       const { tag, page, ListActions } = this.props;
-      console.log('test');
       ListActions.getPostList({
         tag,
         page,
@@ -38,7 +37,9 @@ class ListContainer extends Component {
       const {
         loading, posts, page, lastPage, tag,
       } = this.props;
-      if (!loading) return null; // 로딩 중에는 아무것도 보여주지 않음
+
+
+      if (loading) return null; // 로딩 중에는 아무것도 보여주지 않음
 
       return (
         <div>

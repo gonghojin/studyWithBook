@@ -23,8 +23,8 @@ export default handleActions({
   ...pender({
     type: GET_POST_LIST,
     onSuccess: (state, action) => {
-      const { content: posts } = action.payload;
-      console.log(action.payload);
+      const { content: posts } = action.payload.data;
+      console.log(state.get('posts'));
       return state.set('posts', fromJS(posts));
     },
   }),

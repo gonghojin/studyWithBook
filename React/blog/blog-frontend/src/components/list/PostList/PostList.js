@@ -32,16 +32,16 @@ const PostList = ({ posts }) => {
   const postList = posts.map(
     (post) => {
       const {
-        _id, title, body, publishedDate, tags,
+        _idx, title, body, publishedDate, tags,
       } = post.toJS();
       return (
         <PostItem
-          id={_id}
+          id={_idx}
           title={title}
           body={body}
           publishedDate={publishedDate}
           tags={tags}
-          key={_id}
+          key={_idx}
         />
       );
     },

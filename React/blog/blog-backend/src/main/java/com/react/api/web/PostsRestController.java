@@ -7,8 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 
 @RestController
 @RequestMapping("/api")
@@ -28,7 +26,7 @@ public class PostsRestController {
     }
 
     @GetMapping("/posts")
-    public Post getPostList(@RequestParam(required = false) String tag, Pageable pageable) {
-        return postsRepository.findAll(pageable).getContent().get(0);
+    public Page<Post> getPostList(@RequestParam(required = false) String tag, Pageable pageable) {
+        return postsRepository.findAll(pageable);
     }
 }
