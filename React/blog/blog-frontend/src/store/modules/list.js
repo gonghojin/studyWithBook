@@ -10,7 +10,7 @@ import * as api from 'lib/api';
 const GET_POST_LIST = 'list/GET_POST_LIST';
 
 // action creators
-export const getPostList = createAction(GET_POST_LIST, api.getPostList, meta => meta);
+export const getPostList = createAction(GET_POST_LIST, api.getList, meta => meta);
 
 // initial state
 const initialState = Map({
@@ -23,8 +23,8 @@ export default handleActions({
   ...pender({
     type: GET_POST_LIST,
     onSuccess: (state, action) => {
-      const { data: posts } = action.payload;
-
+      const { content: posts } = action.payload;
+      console.log(action.payload);
       return state.set('posts', fromJS(posts));
     },
   }),

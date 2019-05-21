@@ -27,6 +27,7 @@ class ListContainer extends Component {
 
     getPostList = () => {
       const { tag, page, ListActions } = this.props;
+      console.log('test');
       ListActions.getPostList({
         tag,
         page,
