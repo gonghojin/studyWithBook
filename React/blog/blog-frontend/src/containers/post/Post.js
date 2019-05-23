@@ -9,12 +9,12 @@ import PostBody from 'components/post/PostBody/PostBody';
 class Post extends Component {
   componentDidMount() {
     this.initialize();
-   }
+  }
 
     initialize = async () => {
       const { PostActions, id } = this.props;
       try {
-        await postActions.getPost(id);
+        await PostActions.getPost(id);
       } catch (e) {
         console.log(e);
       }
