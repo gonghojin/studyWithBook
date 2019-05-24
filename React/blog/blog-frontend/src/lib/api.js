@@ -1,5 +1,9 @@
 import axios from 'axios';
+import * as queryString from 'query-string';
 
 export const writePost = ({ title, body, tags }) => axios.post('/api/posts', { title, body, tags });
 
 export const getPost = id => axios.get(`/api/posts/${id}`);
+
+// queryString.stringify : 쿼리 문자열로 변환
+export const getList = ({ tag, page }) => axios.get(`/api/posts/?${queryString.stringify({ tag, page })}`);
