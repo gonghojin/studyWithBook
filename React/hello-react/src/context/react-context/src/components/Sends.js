@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import { SampleConsumer } from '../contexts/sample';
+import {SampleConsumer, useSample} from '../contexts/sample';
 class Sends extends Component {
     state = {
         input: '',
@@ -31,7 +31,8 @@ class Sends extends Component {
         );
     }
 }
-
+/*
+    밑의 userSample 함수가 대체하는 부분( H O C로 변환)
 // Consumer를 사용하여 context 값을 전달받기 위한 컨테이너 컴포넌트
 const SendsContainer = () => (
     <SampleConsumer>
@@ -46,5 +47,7 @@ const SendsContainer = () => (
     </SampleConsumer>
 );
 
+*/
+
 // Sends 대신에 sendsContainer를 export
-export default SendsContainer;
+export default useSample(Sends);

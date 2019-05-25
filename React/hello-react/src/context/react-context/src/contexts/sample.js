@@ -6,7 +6,8 @@ const Context = createContext(); // Context 생성
  * 이 둘은 Context를 사용하기 위해 필요한 컴포넌트
  */
 // Consumer는 나중에 내보내줄 때 편하도록 SampleConsumer라고 호칭
-const { Provider, Consumer: SampleConsumer } = Context;
+// Context는 여러 개 만들 수 있기 때문에, prefix를 설정해주므로써 구분을 준다. (예 Sample~~)
+const {Provider, Consumer: SampleConsumer} = Context;
 
 class SampleProvider extends Component {
     state = {
@@ -20,12 +21,12 @@ class SampleProvider extends Component {
      */
     actions = {
         setValue: (value) => {
-            this.setState({ value });
+            this.setState({value});
         }
     };
 
     render() {
-        const { state, actions } = this;
+        const {state, actions} = this;
         /*
             Provier 내에서 사용할 값을 'value'라고 부른다.
             현재 컴포넌트의 state와 actions 객체를 넣은 객체를 만들어서,
@@ -37,15 +38,33 @@ class SampleProvider extends Component {
         };
 
         return (
-            <Provider value={ value } >
-                { this.props.children }
+            <Provider value={value}>
+                {this.props.children}
             </Provider>
         );
     }
 }
 
-// Context는 여러 개 만들 수 있기 때문에, prefix를 설정해주므로써 구분을 준다.
+// HOC
+function useSample(WrappedComponent) {
+    return function UseSample(props) {
+        return (
+            <SampleConsumer>
+                {
+                    ({state, actions}) => (
+                        <WrappedComponent
+                            value={state.value}
+                            setValue={actions.setValue}
+                        />
+                    )
+
+                }
+            </SampleConsumer>
+        );
+    }
+};
 export {
     SampleProvider,
     SampleConsumer,
+    useSample,
 }
