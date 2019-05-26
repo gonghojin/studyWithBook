@@ -1,4 +1,5 @@
 import React, {Component, createContext} from 'react';
+import createUseConsumer from "../lib/createUseConsumer";
 
 const Context = createContext();
 
@@ -30,7 +31,8 @@ class AnotherProvider extends Component {
         );
     }
 }
-
+/*
+  Hoc를 생성하는 함수로 대체
 const useAnother = (WrappedComponent) => (props) => (
         <AnotherConsumer>
             {
@@ -43,6 +45,9 @@ const useAnother = (WrappedComponent) => (props) => (
             }
         </AnotherConsumer>
 );
+
+*/
+const useAnother = createUseConsumer(AnotherConsumer);
 
 export {
     AnotherProvider,
