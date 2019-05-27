@@ -5,6 +5,7 @@ import com.react.api.repository.PostsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -26,7 +27,7 @@ public class PostsRestController {
     }
 
     @GetMapping("/posts")
-    public Page<Post> getPostList(@RequestParam(required = false) String tag, Pageable pageable) {
+    public Page<Post> getPostList(@RequestParam(required = false) String tag, @PageableDefault Pageable pageable) {
         return postsRepository.findAll(pageable);
     }
 }

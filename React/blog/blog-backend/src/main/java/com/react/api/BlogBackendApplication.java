@@ -21,7 +21,7 @@ public class BlogBackendApplication {
     @Bean
     CommandLineRunner createPost() {
         return args -> {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 50; i++) {
                 String title = "title" + i;
                 String body = "body" + i;
                 String[] tags = {"tags" + i};
