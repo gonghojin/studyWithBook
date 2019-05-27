@@ -6,7 +6,7 @@ import styles from './Pagination.scss';
 const cx = classNames.bind(styles);
 
 const Pagination = ({ page, lastPage, tag }) => {
-  const createPagePath = pageArg => (tag ? `/tag${tag}/${pageArg}` : `/page/${pageArg}`);
+  const createPagePath = pageArg => (tag ? `/tag/${tag}/${pageArg}` : `/page/${pageArg}`);
   return (
     <div className={cx('pagination')}>
       {/*
