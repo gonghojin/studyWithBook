@@ -20,7 +20,7 @@ export default handleActions({
   ...pender({
     type: GET_POST,
     onSuccess: (state, action) => {
-      const { content: post } = action.payload.data;
+      const { data: post } = action.payload;
       return state.set('post', fromJS(post));
     },
   }),

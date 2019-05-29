@@ -10,7 +10,6 @@ class HeaderContainer extends Component {
 
     render() {
       const { match } = this.props;
-
       const { id } = match.params;
 
       return (
