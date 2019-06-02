@@ -9,11 +9,15 @@ import * as api from 'lib/api';
 const INITIALIZE = 'editor/INITIALIZE';
 const CHANGE_INPUT = 'editor/CHANGE_INPUT';
 const WRITE_POST = 'editor/WRITE_POST';
+const GET_POST = 'editor/GET_POST';
+const EDIT_POST = 'editor/EDIT_POST';
 
 // action creators
 export const initialize = createAction(INITIALIZE);
 export const changeInput = createAction(CHANGE_INPUT);
 export const writePost = createAction(WRITE_POST, api.writePost);
+export const getPost = createAction(GET_POST, api.getPost);
+export const editPost = createAction(EDIT_POST, api.editPost);
 
 // initial state
 const initialState = Map({
@@ -35,6 +39,20 @@ export default handleActions({
     onSuccess: (state, action) => {
       const { _idx } = action.payload.data;
       return state.set('postId', _idx);
+    },
+  }),
+  ...pender({
+    type: GET_POST,
+    onSuccess: (state, action) => {
+      const {
+        title,
+        tags,
+        body,
+      } = action.payload.data;
+
+      return state.set('title', title)
+        .set('markdown', body)
+        .set('tag', tags.join(', ')); // 배열 -> ,로 구분된 문자열
     },
   }),
 }, initialState);
