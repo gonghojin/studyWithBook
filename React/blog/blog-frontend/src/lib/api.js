@@ -11,3 +11,5 @@ export const getList = ({ tag, page }) => axios.get(`/api/posts/?${queryString.s
 export const editPost = ({
   id, title, body, tags,
 }) => axios.patch(`/api/posts/${id}`, { title, body, tags });
+
+export const deletePost = id => axios.delete(`/api/posts/${id}`);
