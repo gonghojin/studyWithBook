@@ -8,4 +8,6 @@ export const getPost = id => axios.get(`/api/posts/${id}`);
 // queryString.stringify : 쿼리 문자열로 변환
 export const getList = ({ tag, page }) => axios.get(`/api/posts/?${queryString.stringify({ tag, page })}`);
 
-export const editPost = ({ id, title, body, tags }) => axios.patch(`/api/posts/${id}`, { title, body, tags });
+export const editPost = ({
+  id, title, body, tags,
+}) => axios.patch(`/api/posts/${id}`, { title, body, tags });

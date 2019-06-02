@@ -5,7 +5,7 @@ import styles from './EditorHeader.scss';
 
 const cx = classNames.bind(styles);
 
-const EditorHeader = ({ onGoBack, onSubmit , isEdit }) => (
+const EditorHeader = ({ onGoBack, onSubmit, isEdit }) => (
   <div className="editor-header">
     <div className={cx('back')}>
       <Button onClick={onGoBack} theme="outline">뒤로가기</Button>
