@@ -17,13 +17,11 @@ class AskRemoveModalCotainer extends Component {
     const {
       BaseActions, PostActions, history, match,
     } = this.props;
-    BaseActions.hideModal('remove');
-    const { id } = match.param;
+    const { id } = match.params;
 
     try { // 포스트 삭제 후, 모달 닫고 웹사이트로 이동
       await PostActions.deletePost(id);
-
-
+      BaseActions.hideModal('remove');
       history.push('/');
     } catch (e) {
       console.log(e);
