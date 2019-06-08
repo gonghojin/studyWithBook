@@ -1,15 +1,30 @@
 import { createAction, handleActions } from 'redux-actions';
 
 import { Map } from 'immutable';
-import { pender } from 'redux-pender';
 
-// action types
+import * as api from 'lib/api';
+
+// Tag - action types
 const SHOW_MODAL = 'base/SHOW_MODAL';
 const HIDE_MODAL = 'base/HIDE_MODAL';
 
-// action creators
+const LOGIN = 'base/LOGIN';
+const LOGOUT = 'base/LOGOUT';
+const CHECK_LOGIN = 'base/CHECK_LOGIN';
+const CHANGE_PASSWORD_INPUT = 'base/CHANGE_PASSWORD_INPUT';
+const INITIALIZE_LOGIN_MODAL = 'base/INITIALIZE_LOGIN_MODAL';
+// End
+
+// Tag -action creators
 export const showModal = createAction(SHOW_MODAL);
 export const hideModal = createAction(HIDE_MODAL);
+
+export const login = createAction(LOGIN, api.login);
+export const logout = createAction(LOGOUT, api.logout);
+export const checkLogin = createAction(CHECK_LOGIN, api.checkLogin);
+export const changePasswordInput = createAction(CHANGE_PASSWORD_INPUT);
+export const initializeLoginModal = createAction(INITIALIZE_LOGIN_MODAL);
+// END
 
 // initial state
 const initialState = Map({
