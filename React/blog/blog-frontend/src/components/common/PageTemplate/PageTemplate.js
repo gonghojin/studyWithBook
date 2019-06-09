@@ -1,7 +1,9 @@
 import React from 'react';
 import className from 'classnames/bind';
-import Footer from 'components/common/Footer';
+
 import HeaderContainer from 'containers/common/HeaderContainer';
+import FooterContainer from 'containers/common/FooterContainer';
+
 import styles from './PageTemplate.scss';
 
 const cx = className.bind(styles);
@@ -11,7 +13,7 @@ const PageTemplate = ({ children }) => (
     <main>
       {children}
     </main>
-    <Footer />
+    <FooterContainer />
   </div>
 );
 
