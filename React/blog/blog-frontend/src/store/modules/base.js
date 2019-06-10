@@ -1,4 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
+import { pender } from 'redux-pender';
 
 import { Map } from 'immutable';
 
@@ -33,6 +34,13 @@ const initialState = Map({
     remove: false,
     login: false, // 추후 구현될 로그인 모달
   }),
+  // 로그인 모달 상태
+  loginModal: Map({
+    password: '',
+    error: false,
+  }),
+  // 현재 로그인 상태
+  logged: false,
 });
 
 // reducer
@@ -47,4 +55,27 @@ export default handleActions({
 
     return state.setIn(['modal', modalName], false);
   },
+  ...pender({
+    type: LOGIN,
+    // 로그인 성공 시
+    onSuccess: (state, action) => state.set('logged', true),
+    // 오류 발생 시
+    onError: (state, action) => state.setIn(['loginModal', 'error'], true)
+      .setIn(['loginModal', 'password'], ''),
+  }),
+  ...pender({
+    type: CHECK_LOGIN,
+    onSuccess: (state, action) => {
+      const { logged } = action.payload.data;
+
+      return state.set('logged', logged);
+    },
+  }),
+  [CHANGE_PASSWORD_INPUT]: (state, action) => {
+    const { payload: value } = action;
+
+    return state.set(['loginModal', 'paaword'], value);
+  },
+  // 로그인 모달 상태 초기화(텍스트 / 오류 초기화)
+  [INITIALIZE_LOGIN_MODAL]: (state, action) => state.set('loginModal', initialState.get('loginModal')),
 }, initialState);
