@@ -16,6 +16,9 @@ export const deletePost = id => axios.delete(`/api/posts/${id}`);
 
 // Tag - 로그인
 export const login = password => axios.post('/api/auth/login', { password });
+
 export const checkLogin = () => axios.get('/api/auth/check');
+
 export const logout = () => axios.post('/api/auth/logout');
 // End
+
