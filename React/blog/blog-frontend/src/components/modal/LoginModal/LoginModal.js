@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './LoginModal.scss';
