@@ -42,3 +42,85 @@ Map 클래스를 사용할 때마다 위와 같이 캡슐화라는 소리가 아
 Map(혹은 유사한 경계 인터페이스)을 스템 전반에 걸쳐 돌려가며 사용하지 말는 말이다. Map과 같은 경계 인터페이스를 이용할 때는 
 + 이를 이용하는 클래스나 클래스 계열 밖으로 노출되지 않도록 주의한다.
 + Map 인스턴스를 공개 API의 인수로 넘기거나 반환값으로 사용하지 않는다.
+
+## 경계 살피고 익히기
++ 서드 파티 코드를 사용할 때는, (우리 자신을 위해) 우리가 사용할 코드를 테스트 하는 편이 바람직하다.
+> 외부 라이브러리를 사용할 때 오류 발생 시, 우리의 버그인지? 라이브러리 버그인지? 찾아내느라 골치를 앓는다.  
+> 또한 외부 코드를 익히기도 어렵고 외부 코드를 통합하기도 어렵다. 동시에 하기는 두 배나 어렵다.  
+> 따라서 곧바로 우리쪽 코드를 작성해 외부 코드를 호출하는 대신 먼저 간단한 테스트 케이스를 작성해 외부 코드를 익히자!!  
+> 이를 `학습 테스트`라고 부른다.  
+> + 학습 테스는 프로그램에서 사용하려는 방식대로 외부 API를 호출한다.  
+> 통제된 환경에서 API를 제대로 이해하는지를 확인하는 셈이다.  
+> 	+ 학습 테스트는 API를 사용하려는 목적에 초점을 맞춘다.
+
+## Log4j 익히기
+1 - 화면에 "hello"를 출력하는 테스트 케이스
+~~~java
+@Test
+public void testLogCreate() {
+	Logger logger = Logger.getLogger("MyLogger");
+	logger.info("hello");
+}
+~~~
+2 - Appender가 필요하다는 오류가 발생한다. 문서를 좀 더 읽어보니 ConsoleAppender라는 클래스가 있다. 생성 후 테스트 케이스를 다시 돌린다.
+~~~java
+@Test
+public void testLogAddApender() {
+  	Logger logger = Logger.getLogger("MyLogger");
+	ConsoleAppender appender = new ConsoleAppender();
+	logger.addAppender(appender);
+	logger.info("hello");
+}
+~~~
+3 - 이번에는 Appender에 출력 스트림이 없다고 한다. 구글 검색 후 다음과 같이 시도한다.
+~~~java
+@Test
+public void testLogAddAppender() {
+	Logger logger = Logger.getLogger("MyLogger");
+	logger.removeAllAppenders();
+	logger.addAppender(new ConsoleAppender(
+		new PatternLayout("%p %t %m%n"),
+		ConsoleAppender.SYSTEM_OUT));
+	logger.info("hello");
+}
+// 성공했지만 ConsoleAppender를 만들어놓고 ConsoleAppender.SYSTEM_OUT을 받는건 뭔가 이상하다.
+// 그래서 제거했더니 문제가 없다.
+// 하지만 PatternLayout을 제거하니 또 다시 오류가 뜬다.
+// 문서를 더 자세히 보니, ConsoleAppender의 기본 생성자는 '설정되지 않은 상태'란다.
+// 명백하지도 않고 실용적이지도 않다... 버그이거나, 적어도 "일관적이지 않다"고 느껴진다.
+~~~
+조금 더 구글링, 문서 읽기, 테스트를 거쳐 log4j의 동작법을 알아냈고 그것을 간단한 유닛테스트로 기록했다.  
+이제 이 지식을 기반으로 log4j를 래핑하는 클래스를 만들수 있다. 나머지 코드에서는 log4j의 동작원리에 대해 알 필요가 없게 됐다.
+~~~java
+public class LogTest {
+    private Logger logger;
+    
+    @Before
+    public void initialize() {
+        logger = Logger.getLogger("logger");
+        logger.removeAllAppenders();
+        Logger.getRootLogger().removeAllAppenders();
+    }
+    
+    @Test
+    public void basicLogger() {
+        BasicConfigurator.configure();
+        logger.info("basicLogger");
+    }
+    
+    @Test
+    public void addAppenderWithStream() {
+        logger.addAppender(new ConsoleAppender(
+            new PatternLayout("%p %t %m%n"),
+            ConsoleAppender.SYSTEM_OUT));
+        logger.info("addAppenderWithStream");
+    }
+    
+    @Test
+    public void addAppenderWithoutStream() {
+        logger.addAppender(new ConsoleAppender(
+            new PatternLayout("%p %t %m%n")));
+        logger.info("addAppenderWithoutStream");
+    }
+}
+~~~
