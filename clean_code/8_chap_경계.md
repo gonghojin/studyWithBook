@@ -2,7 +2,15 @@
 시스템에 들어가는 모든 소프트웨어를 직접 개발하는 경우는 드물다. 어떤 식으로든 이 외부코드를 우리 코드에 깔끔하게 통합해야 한다.  
 이 장에서는 소프트웨어 경계를 깔끔하게 처리하는 기법과 기교를 살펴본다.  
 
-## 외부 코드 사용하기
+### 목차
++ 외부 코드 사용하기(서드 파티 코드)
++ 경계 살피고 익히기
++ Log4j 익히기
++ 학습 테스트는 공짜 이상이다.
++ 아직 존재하지 않는 코드를 사용하기
++ 꺠끗한 경계
+
+## 외부 코드(서드 파티 코드) 사용하기
 인터페이스를 **제공하는 입장**과 **사용하는 입장** 사이에는 필연적인 긴장감이 존재한다.   
 제공자는 좀 더 다양한 환경에서 좀 더 많은 사용자가 사용할 수 있도록 다양한 사용성을 지향한다.  
 사용자는 자신의 요구에 집중하는 인터페이스를 바란다.  
@@ -124,3 +132,74 @@ public class LogTest {
     }
 }
 ~~~
+
+## 학습 테스트는 공짜 이상이다.
++ 학습 테스트에 드는 비용은 없다.
+	+ 어쩃든 API를 배워야 하므로, 오히려 필요한 지식만 확보하는 손쉬운 방법이다.
+	+ 학습 테스트는 이해도를 높여주는 정확한 실험이다.
++ 학습 테스트는 공짜 이상이다.
+	+ 투자하는 노력보다 얻는 성과가 더 크다.
+	+ 패키지 새 버전이 나온다면 학습 테스트를 돌려 차이가 있는지 확인한다.
+		+ 새 버전이 우리 코드와 호환되지 않으면 학습 테스트가 이 사실을 곧바로 밝혀낸다.
++ 학습 테스트를 이용한 학습이 필요하든 그렇지 않든, 실제 코드와 동일한 방식으로 인터페이스를 사용하는 테스트 케이스가 필요하다.
+	+ 이런 경계 테스트가 있다면 패키지의 새 버전으로 이전하기 쉬워진다.   
+	그렇지 않다면 낡은 버전을 필요 이상으로 오랫동안 사용하려는 유혹에 빠지기 쉽다.
+
+## 아직 존재하지 않는 코드를 사용하기
+아직 개발되지 않은 모듈이 필요한데, 기능은커녕 인터페이스조차 구현되지 않은 경우가 있을 수 있다.  
+> 저자는 무선통신 시스템을 구축하는 프로젝트를 하고 있었다.
+  그 팀 안의 하부 팀으로 "송신기"를 담당하는 팀이 있었는데 나머지 팀원들은 송신기에 대한 지식이 거의 없었다.
+  "송신기"팀은 인터페이스를 제공하지 않았다. 하지만 저자는 "송신기"팀을 기다리는 대신 "원하는" 기능을 정의하고 인터페이스로 만들었다. [지정한 주파수를 이용해 이 스트림에서 들어오는 자료를 아날로그 신호로 전송하라]
+  이렇게 인터페이스를 정의함으로써 메인 로직을 더 깔끔하게 짤 수 있었고 목표를 명확하게 나타낼 수 있었다.
+~~~java
+public interface Transimitter {
+    public void transmit(SomeType frequency, OtherType stream);
+}
+
+public class FakeTransmitter implements Transimitter {
+    public void transmit(SomeType frequency, OtherType stream) {
+        // 실제 구현이 되기 전까지 더미 로직으로 대체
+    }
+}
+
+// 경계 밖의 API
+public class RealTransimitter {
+    // 캡슐화된 구현
+    ...
+}
+
+public class TransmitterAdapter extends RealTransimitter implements Transimitter {
+    public void transmit(SomeType frequency, OtherType stream) {
+        /* 
+			RealTransimitter(외부 API)를 사용해 실제 로직을 여기에 구현.
+	        Transmitter의 변경이 미치는 영향은 이 부분에 한정된다.
+         */
+    }
+}
+
+public class CommunicationController {
+    // Transmitter팀의 API가 제공되기 전에는 아래와 같이 사용한다.
+    public void someMethod() {
+        Transmitter transmitter = new FakeTransmitter();
+        transmitter.transmit(someFrequency, someStream);
+    }
+    
+    // Transmitter팀의 API가 제공되면 아래와 같이 사용한다.
+    public void someMethod() {
+        Transmitter transmitter = new TransmitterAdapter();
+        transmitter.transmit(someFrequency, someStream);
+    }
+}
+~~~
+
+## 꺠끗한 경계
+소프트웨어 설계가 우수하다면 변경하는데 많은 투자와 재작업이 필요하지 않는다. 통제하지 못하는 코드를 사용할 때는 너무 많은 투자를 하거나 향후 변경 비용이 지나치게 커지지 않도록 각별히 주의해야 한다.  
++ 경계에 위치하는 코드는 깔끔히 분리한다.
++ 또한 기대치를 정의하는 테스트 케이스도 작성한다.  
+
+통제가 불가능한 외부 패키지에 의존하는 대신 통제가 가능한 우리 코드에 의존하는 편이 훨씬 좋다.  
+`외부 패키지를 호츨하는 코드를 가능한 줄여 경계를 관리하자.`
+> Map에서 봤듯이, 새로운 클래스로 경계를 감싸거나 Adapter 패턴을 사용해 우리가 원하는 인터페이스를 패키지가 제공하는 인터페이스로 변환하자  
+> + 어느 방법이든 코드 가독성이 높아진다.
+> + 경계 인터페이스를 사용하는 일관성도 높아진다.
+> + 외부 패키지가 변했을 떄 변경할 코드도 줄어든다.
