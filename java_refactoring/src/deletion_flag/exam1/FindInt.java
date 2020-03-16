@@ -1,4 +1,4 @@
-package deletion_flag;
+package deletion_flag.exam1;
 
 public class FindInt {
 	/*public static boolean find(int[] data, int target) {

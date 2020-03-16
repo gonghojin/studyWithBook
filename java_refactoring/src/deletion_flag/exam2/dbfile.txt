@@ -1,0 +1,3 @@
+spring@example.com=Spring
+gradle@example.com=Gradle
+maven@example.com=Maven
