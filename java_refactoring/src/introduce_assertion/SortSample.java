@@ -16,11 +16,11 @@ public class SortSample {
 					m = y;
 				}
 			}
-			// 여기서 data[m]은 data[x] ~ data[data.length - 1]의 최솟값이어야 한다.
+			assert isMin(m, x, data.length -1);
 			int v = data[m];
 			data[m] = data[x];
 			data[x] = v;
-			// 여기서  data[0] ~ data[x + 1]은 이미 정렬되어 있어야 함
+			assert isSorted(0, x + 1);
 		}
 	}
 
@@ -35,5 +35,24 @@ public class SortSample {
 		buffer.append("]");
 
 		return buffer.toString();
+	}
+
+	private boolean isMin(int pos, int start, int end) {
+		for (int i = start; i <= end; i++) {
+			if (data[pos] > data[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean isSorted(int start, int end) {
+		for (int i = start; i < end; i++) {
+			if (data[i] > data[i + 1]) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
