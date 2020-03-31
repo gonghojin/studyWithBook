@@ -9,4 +9,8 @@ public class NullLabel extends Label {
 	public boolean isNull() {
 		return true;
 	}
+
+	@Override
+	public void display() {
+	}
 }
