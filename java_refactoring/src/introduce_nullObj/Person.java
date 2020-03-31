@@ -10,15 +10,15 @@ public class Person {
 	}
 
 	public Person(Label name) {
-		this(name, null);
+		this(name, new NullLabel());
 	}
 
 	public void display() {
-		if (name != null) {
+		if (!name.isNull()) {
 			name.display();
 		}
 
-		if (mail != null) {
+		if (!mail.isNull()) {
 			mail.display();
 		}
 	}
