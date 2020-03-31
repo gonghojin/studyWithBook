@@ -11,6 +11,10 @@ public class Label {
 		System.out.println("display: " + label);
 	}
 
+	public boolean isNull() {
+		return false;
+	}
+
 	@Override
 	public String toString() {
 		return "\"" + label + "\"";
